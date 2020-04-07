@@ -13,4 +13,4 @@ build:
 execute:
   image: java:latest
   stage: execute
-  script: cd src/main/java/Domain && java Services/WatchedFile
+  script: cd src/main/java/Domain && java Services/WatchedFile.java
