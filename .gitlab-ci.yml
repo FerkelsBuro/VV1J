@@ -6,11 +6,11 @@ stages:
 build:
   image: java:latest
   stage: build
-  script: cd Domain && javac Services/*.java
+  script: cd src/main/java/Domain && javac Services/*.java
   artifacts:
     untracked: true
 
 execute:
   image: java:latest
   stage: execute
-  script: cd Domain && java Services/WatchedFile
+  script: cd src/main/java/Domain && java Services/WatchedFile
