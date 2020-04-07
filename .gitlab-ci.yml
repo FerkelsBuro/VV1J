@@ -4,13 +4,13 @@ stages:
 
 
 build:
-  image: java:14
+  image: gradle:6.3.0-jdk14
   stage: build
   script: cd src/main/java && javac Domain/Services/*.java
   artifacts:
     untracked: true
 
 execute:
-  image: java:14
+  image: java:latest
   stage: execute
   script: cd src/main/java && java Domain.Services.WatchedFile
