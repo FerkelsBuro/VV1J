@@ -11,6 +11,6 @@ build:
     untracked: true
 
 execute:
-  image: java:latest
+  image: gradle:6.3.0-jdk14
   stage: execute
   script: cd src/main/java && java Domain.Services.WatchedFile
