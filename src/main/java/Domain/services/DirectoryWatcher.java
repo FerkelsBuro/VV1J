@@ -41,9 +41,6 @@ public class DirectoryWatcher {
         WatchService watchService
                 = FileSystems.getDefault().newWatchService();
 
-        //Path path = Paths.get(System.getProperty("user.dir"));
-        //System.out.println(path);
-
         path.register(
                 watchService,
                 StandardWatchEventKinds.ENTRY_CREATE,
@@ -57,9 +54,5 @@ public class DirectoryWatcher {
             }
             key.reset();
         }
-    }
-
-    private void executeStrategy(String fileName, Alphabet alphabet, Consumer<FileEvent> strategy) {
-        strategy.accept(new FileEvent(fileName, alphabet));
     }
 }
