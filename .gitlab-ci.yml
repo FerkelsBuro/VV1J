@@ -9,8 +9,8 @@ build:
   script: cd src/main/java && javac Domain/services/*.java Domain/models/*.java
   artifacts:
     untracked: true
-
-execute:
-  image: gradle:6.3.0-jdk14
-  stage: execute
-  script: cd src/main/java && java Domain.services.DirectoryWatcher
+#
+#execute:
+#  image: gradle:6.3.0-jdk14
+#  stage: execute
+#  script: cd src/main/java && java Domain.services.DirectoryWatcher

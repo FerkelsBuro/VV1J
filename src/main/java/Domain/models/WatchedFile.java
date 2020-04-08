@@ -7,6 +7,18 @@ public class WatchedFile {
     private String directory;
     private Date date;
 
+    public String getFileName() {
+        return fileName;
+    }
+
+    public String getDirectory() {
+        return directory;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
     public enum Status {
         INSYNC,
         CREATED,
