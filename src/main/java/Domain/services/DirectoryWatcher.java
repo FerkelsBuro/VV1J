@@ -18,7 +18,7 @@ public class DirectoryWatcher {
         Logger logger = Logger.getLogger(DirectoryWatcher.class.getName());
         Path path;
 
-        if(args.length == 0) {
+        if (args.length == 0) {
             path = Paths.get(System.getProperty("user.dir"));
         } else {
             path = Paths.get(args[0]);
@@ -29,10 +29,11 @@ public class DirectoryWatcher {
 
         Consumer<FileEvent> strategy = (event) -> {
             logger.info(
-                    "Event kind:" + event.getEvent()
-                            + ". File affected: " + event.getFile().getFileName() + ".");
+                    "Event kind: " + event.getEvent()
+                            + "\nFile affected: " + event.getFile().getFileName()
+                            + "\nDirectory: " + event.getFile().getDirectory() + "\n");
 
-            watchedDirectory.update(event, path.toString());
+            watchedDirectory.update(event, event.getFile().getDirectory());
         };
         try {
             directoryWatcher.watch(path, strategy);

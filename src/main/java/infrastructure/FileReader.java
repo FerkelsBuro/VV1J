@@ -1,7 +1,6 @@
 package infrastructure;
 
 import Domain.models.WatchedFile;
-import Domain.services.WatchedDirectory;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +11,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class FileReader {
@@ -22,8 +20,8 @@ public class FileReader {
         Collection<String> fileNames;
 
         fileNames = read(path);
-        for(String fileName : fileNames) {
-            files.add(new WatchedFile(new File(fileName).getName(), path, getFileTime(fileName), WatchedFile.Status.CREATED));
+        for (String fileName : fileNames) {
+            files.add(new WatchedFile(new File(fileName).getName(), new File(fileName).getCanonicalPath(), getFileTime(fileName), WatchedFile.Status.CREATED));
         }
 
         return files;

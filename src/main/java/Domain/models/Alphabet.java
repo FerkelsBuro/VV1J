@@ -12,7 +12,7 @@ public enum Alphabet {
     SYNC,
     MODIFY;
 
-    public static Map<WatchEvent.Kind<?>, Alphabet> watchEventToAlphabet = new HashMap<>();
+    private static final Map<WatchEvent.Kind<?>, Alphabet> watchEventToAlphabet = new HashMap<>();
 
     static {
         watchEventToAlphabet.put(StandardWatchEventKinds.ENTRY_CREATE, CREATE);
