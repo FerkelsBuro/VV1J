@@ -21,14 +21,14 @@ public class FileReader {
 
         fileNames = read(path);
         for (String fileName : fileNames) {
-            files.add(new WatchedFile(new File(fileName).getName(), new File(fileName).getCanonicalPath(), getFileTime(fileName), WatchedFile.Status.CREATED));
+            files.add(new WatchedFile(new File(fileName).getName(), new File(fileName).getParent(), getFileTime(fileName), WatchedFile.Status.CREATED));
         }
 
         return files;
     }
 
     public Collection<String> read(String path) throws IOException {
-        Stream<Path> paths = Files.walk(Paths.get(path));
+        Stream<Path> paths = Files.walk(Paths.get(path), 1);
         List<String> files = new LinkedList<>();
         paths
                 .filter(Files::isRegularFile)

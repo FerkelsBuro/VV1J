@@ -5,6 +5,7 @@ import Domain.models.FileEvent;
 import Domain.models.WatchedFile;
 import infrastructure.FileReader;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.Arrays;
@@ -62,7 +63,10 @@ public class DirectoryWatcher {
         WatchKey key;
         while ((key = watchService.take()) != null) {
             for (WatchEvent<?> event : key.pollEvents()) {
-                strategy.accept(new FileEvent(new WatchedFile(event.context().toString(), path.toString(), null, null), Alphabet.convertWatchEvents(event.kind())));
+                File currentFile = new File(event.context().toString());
+                if (!currentFile.isDirectory()) {
+                    strategy.accept(new FileEvent(new WatchedFile(event.context().toString(), new File(currentFile.getCanonicalPath()).getParent(), null, null), Alphabet.convertWatchEvents(event.kind())));
+                }
             }
             key.reset();
         }
