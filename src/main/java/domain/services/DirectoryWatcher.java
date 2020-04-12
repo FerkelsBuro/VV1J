@@ -8,8 +8,11 @@ import infrastructure.FileReader;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class DirectoryWatcher {
     private FileReader fileReader;
@@ -27,12 +30,11 @@ public class DirectoryWatcher {
 
         WatchKey key;
         while ((key = watchService.take()) != null) {
-            for (WatchEvent<?> event : key.pollEvents()) {
-                File currentFile = new File(event.context().toString());
-                if (!currentFile.isDirectory()) {
-                    strategy.accept(new FileEvent(new WatchedFile(event.context().toString(), new File(currentFile.getCanonicalPath()).getParent(), null, null), Alphabet.convertWatchEvents(event.kind())));
-                }
-            }
+            key.pollEvents().stream()
+                    .filter(e -> !new File(e.context().toString()).isDirectory())
+                    .map(e -> new FileEvent(new WatchedFile(e.context().toString(), path.toString(), fileReader.getFileTime(path.toString() + e.context().toString()), null), Alphabet.convertWatchEvents(e.kind())))
+                    .forEach(strategy);
+
             key.reset();
         }
     }
