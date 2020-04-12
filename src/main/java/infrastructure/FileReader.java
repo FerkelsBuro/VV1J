@@ -1,6 +1,6 @@
 package infrastructure;
 
-import Domain.models.WatchedFile;
+import domain.models.WatchedFile;
 
 import java.io.File;
 import java.io.IOException;

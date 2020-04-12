@@ -1,6 +1,6 @@
-import Domain.models.FileEvent;
-import Domain.services.DirectoryWatcher;
-import Domain.services.WatchedDirectory;
+import domain.models.FileEvent;
+import domain.services.DirectoryWatcher;
+import domain.services.WatchedDirectory;
 
 import java.io.IOException;
 import java.nio.file.Path;

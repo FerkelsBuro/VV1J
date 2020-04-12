@@ -1,4 +1,4 @@
-package Domain.models;
+package domain.models;
 
 public class FileEvent {
     private final WatchedFile file;

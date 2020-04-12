@@ -1,8 +1,8 @@
-package Domain.services;
+package domain.services;
 
-import Domain.models.Alphabet;
-import Domain.models.FileEvent;
-import Domain.models.WatchedFile;
+import domain.models.Alphabet;
+import domain.models.FileEvent;
+import domain.models.WatchedFile;
 import infrastructure.FileReader;
 
 import java.util.HashMap;
