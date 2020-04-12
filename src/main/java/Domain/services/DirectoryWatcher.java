@@ -34,7 +34,7 @@ public class DirectoryWatcher {
                             + "\nFile affected: " + event.getFile().getFileName()
                             + "\nDirectory: " + event.getFile().getDirectory() + "\n");
 
-            watchedDirectory.update(event, event.getFile().getDirectory());
+            watchedDirectory.update(event);
         };
         try {
             directoryWatcher.watch(path, strategy);

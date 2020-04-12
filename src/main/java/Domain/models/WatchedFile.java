@@ -3,8 +3,8 @@ package Domain.models;
 import java.util.Date;
 
 public class WatchedFile {
-    private String fileName;
-    private String directory;
+    private final String fileName;
+    private final String directory;
     private Date date;
     private Status status;
 
@@ -33,6 +33,10 @@ public class WatchedFile {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public enum Status {
