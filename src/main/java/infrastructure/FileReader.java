@@ -33,7 +33,7 @@ public class FileReader {
         return new Date(new File(path).lastModified());
     }
 
-    public WatchedFile readReturnWatchedFile(String path, WatchedFile.Status status) throws IOException {
+    public WatchedFile readReturnWatchedFile(String path, WatchedFile.Status status) {
         File file = new File(path);
         return new WatchedFile(file.getName(), file.getParent(), getFileTime(path), status);
     }

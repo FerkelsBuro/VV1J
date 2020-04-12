@@ -26,11 +26,7 @@ public class Startup {
                             + "\nFile affected: " + event.getFileName()
                             + "\nDirectory: " + path.toString() + "\n");
 
-            try {
-                watchedDirectory.update(event, path);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            watchedDirectory.update(event, path);
         };
         try {
             directoryWatcher.watch(path, strategy);

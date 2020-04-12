@@ -52,7 +52,7 @@ public class WatchedDirectory {
         this.fileReader = fileReader;
     }
 
-    public void update(FileEvent event, Path path) throws IOException {
+    public void update(FileEvent event, Path path) {
         WatchedFile file = files.get(event.getFileName());
         if (file == null) {
             file = fileReader.readReturnWatchedFile(path.toString(), WatchedFile.Status.CREATED);
