@@ -12,20 +12,18 @@ import java.util.Collection;
 import java.util.function.Consumer;
 
 public class DirectoryWatcher {
+    private FileReader fileReader;
+
+    public DirectoryWatcher(FileReader fileReader) {
+        this.fileReader = fileReader;
+    }
+
     public void watch(Path path, Consumer<FileEvent> strategy) throws IOException, InterruptedException {
         WatchService watchService
                 = FileSystems.getDefault().newWatchService();
+        registerWatcher(path, watchService);
 
-        path.register(
-                watchService,
-                StandardWatchEventKinds.ENTRY_CREATE,
-                StandardWatchEventKinds.ENTRY_DELETE,
-                StandardWatchEventKinds.ENTRY_MODIFY);
-
-        Collection<WatchedFile> events = new FileReader().readReturnWatchedFiles(path.toString());
-        for (WatchedFile event : events) {
-            strategy.accept(new FileEvent(event, Alphabet.CREATE));
-        }
+        readFilesOnStart(path, strategy);
 
         WatchKey key;
         while ((key = watchService.take()) != null) {
@@ -36,6 +34,21 @@ public class DirectoryWatcher {
                 }
             }
             key.reset();
+        }
+    }
+
+    private void registerWatcher(Path path, WatchService watchService) throws IOException {
+        path.register(
+                watchService,
+                StandardWatchEventKinds.ENTRY_CREATE,
+                StandardWatchEventKinds.ENTRY_DELETE,
+                StandardWatchEventKinds.ENTRY_MODIFY);
+    }
+
+    private void readFilesOnStart(Path path, Consumer<FileEvent> strategy) throws IOException {
+        Collection<WatchedFile> events = this.fileReader.readReturnWatchedFiles(path.toString());
+        for (WatchedFile event : events) {
+            strategy.accept(new FileEvent(event, Alphabet.CREATE));
         }
     }
 }

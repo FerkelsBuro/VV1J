@@ -1,6 +1,7 @@
 import domain.models.FileEvent;
 import domain.services.DirectoryWatcher;
 import domain.services.WatchedDirectory;
+import infrastructure.FileReader;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -13,7 +14,8 @@ import java.util.logging.Logger;
 public class Startup {
     public static void main(String[] args) {
         Logger logger = Logger.getLogger(DirectoryWatcher.class.getName());
-        DirectoryWatcher directoryWatcher = new DirectoryWatcher();
+        FileReader fileReader = new FileReader();
+        DirectoryWatcher directoryWatcher = new DirectoryWatcher(fileReader);
         WatchedDirectory watchedDirectory = new WatchedDirectory();
 
         Path path = args.length == 0 ? Paths.get(System.getProperty("user.dir")) : Paths.get(args[0]);
