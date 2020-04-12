@@ -2,17 +2,13 @@ package domain.services;
 
 import domain.models.Alphabet;
 import domain.models.FileEvent;
-import domain.models.WatchedFile;
 import infrastructure.FileReader;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 public class DirectoryWatcher {
     private FileReader fileReader;

@@ -27,16 +27,16 @@ public class WatchedFile {
         return date;
     }
 
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     public Status getStatus() {
         return status;
     }
 
     public void setStatus(Status status) {
         this.status = status;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     public enum Status {

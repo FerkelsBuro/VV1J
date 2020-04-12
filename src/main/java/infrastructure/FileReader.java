@@ -34,7 +34,7 @@ public class FileReader {
     }
 
     public WatchedFile readReturnWatchedFile(String path, WatchedFile.Status status) throws IOException {
-            File file = new File(path);
-            return new WatchedFile(file.getName(), file.getParent(), getFileTime(path), status);
+        File file = new File(path);
+        return new WatchedFile(file.getName(), file.getParent(), getFileTime(path), status);
     }
 }
