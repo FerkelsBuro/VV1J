@@ -13,16 +13,10 @@ import java.util.logging.Logger;
 public class Startup {
     public static void main(String[] args) {
         Logger logger = Logger.getLogger(DirectoryWatcher.class.getName());
-        Path path;
-
-        if (args.length == 0) {
-            path = Paths.get(System.getProperty("user.dir"));
-        } else {
-            path = Paths.get(args[0]);
-        }
-
         DirectoryWatcher directoryWatcher = new DirectoryWatcher();
         WatchedDirectory watchedDirectory = new WatchedDirectory();
+
+        Path path = args.length == 0 ? Paths.get(System.getProperty("user.dir")) : Paths.get(args[0]);
 
         Consumer<FileEvent> strategy = (event) -> {
             logger.info(
