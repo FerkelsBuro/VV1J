@@ -32,7 +32,7 @@ public class DirectoryWatcher {
         while ((key = watchService.take()) != null) {
             key.pollEvents().stream()
                     .filter(e -> !new File(e.context().toString()).isDirectory())
-                    .map(e -> new FileEvent(new WatchedFile(e.context().toString(), path.toString(), fileReader.getFileTime(path.toString() + e.context().toString()), null), Alphabet.convertWatchEvents(e.kind())))
+                    .map(e -> new FileEvent(e.context().toString(), Alphabet.convertWatchEvents(e.kind())))
                     .forEach(strategy);
 
             key.reset();
@@ -48,9 +48,9 @@ public class DirectoryWatcher {
     }
 
     private void readFilesOnStart(Path path, Consumer<FileEvent> strategy) throws IOException {
-        Collection<WatchedFile> events = this.fileReader.readReturnWatchedFiles(path.toString());
-        for (WatchedFile event : events) {
-            strategy.accept(new FileEvent(event, Alphabet.CREATE));
+        Collection<String> fileNames = this.fileReader.readFileNames(path.toString());
+        for (String fileName : fileNames) {
+            strategy.accept(new FileEvent(fileName, Alphabet.CREATE));
         }
     }
 }

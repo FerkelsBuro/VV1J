@@ -14,19 +14,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class FileReader {
-    public Collection<WatchedFile> readReturnWatchedFiles(String path) throws IOException {
-        Collection<WatchedFile> files = new LinkedList<>();
-        Collection<String> fileNames = read(path);
-
-        for (String fileName : fileNames) {
-            var file = new File(fileName);
-            files.add(new WatchedFile(file.getName(), file.getParent(), getFileTime(fileName), WatchedFile.Status.CREATED));
-        }
-
-        return files;
-    }
-
-    public Collection<String> read(String path) throws IOException {
+    public Collection<String> readPaths(String path) throws IOException {
         Stream<Path> paths = Files.walk(Paths.get(path), 1);
 
         return paths
@@ -35,7 +23,18 @@ public class FileReader {
                 .collect(Collectors.toCollection(LinkedList::new));
     }
 
+    public Collection<String> readFileNames(String path) throws IOException {
+        return readPaths(path).stream()
+                .map(p -> new File(p).getName())
+                .collect(Collectors.toList());
+    }
+
     public Date getFileTime(String path) {
         return new Date(new File(path).lastModified());
+    }
+
+    public WatchedFile readReturnWatchedFile(String path, WatchedFile.Status status) throws IOException {
+            File file = new File(path);
+            return new WatchedFile(file.getName(), file.getParent(), getFileTime(path), status);
     }
 }

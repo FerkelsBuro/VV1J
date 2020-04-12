@@ -16,17 +16,21 @@ public class Startup {
         Logger logger = Logger.getLogger(DirectoryWatcher.class.getName());
         FileReader fileReader = new FileReader();
         DirectoryWatcher directoryWatcher = new DirectoryWatcher(fileReader);
-        WatchedDirectory watchedDirectory = new WatchedDirectory();
+        WatchedDirectory watchedDirectory = new WatchedDirectory(fileReader);
 
         Path path = args.length == 0 ? Paths.get(System.getProperty("user.dir")) : Paths.get(args[0]);
 
         Consumer<FileEvent> strategy = (event) -> {
             logger.info(
                     "Event kind: " + event.getEvent()
-                            + "\nFile affected: " + event.getFile().getFileName()
-                            + "\nDirectory: " + event.getFile().getDirectory() + "\n");
+                            + "\nFile affected: " + event.getFileName()
+                            + "\nDirectory: " + path.toString() + "\n");
 
-            watchedDirectory.update(event);
+            try {
+                watchedDirectory.update(event, path);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         };
         try {
             directoryWatcher.watch(path, strategy);

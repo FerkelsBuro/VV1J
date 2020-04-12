@@ -1,16 +1,16 @@
 package domain.models;
 
 public class FileEvent {
-    private final WatchedFile file;
+    private final String fileName;
     private final Alphabet event;
 
-    public FileEvent(WatchedFile file, Alphabet event) {
-        this.file = file;
+    public FileEvent(String fileName, Alphabet event) {
+        this.fileName = fileName;
         this.event = event;
     }
 
-    public WatchedFile getFile() {
-        return file;
+    public String getFileName() {
+        return fileName;
     }
 
     public Alphabet getEvent() {

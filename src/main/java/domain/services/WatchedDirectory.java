@@ -5,6 +5,8 @@ import domain.models.FileEvent;
 import domain.models.WatchedFile;
 import infrastructure.FileReader;
 
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,11 +45,18 @@ public class WatchedDirectory {
     }};
 
     private Map<String, WatchedFile> files = new HashMap<>();
+    private FileReader fileReader;
 
-    public void update(FileEvent event) {
-        WatchedFile file = files.get(event.getFile().getFileName());
+    public WatchedDirectory(FileReader fileReader) {
+
+        this.fileReader = fileReader;
+    }
+
+    public void update(FileEvent event, Path path) throws IOException {
+        WatchedFile file = files.get(event.getFileName());
         if (file == null) {
-            files.put(event.getFile().getFileName(), new WatchedFile(event.getFile().getFileName(), event.getFile().getDirectory(), event.getFile().getDate(), WatchedFile.Status.CREATED));
+            file = fileReader.readReturnWatchedFile(path.toString(), WatchedFile.Status.CREATED);
+            files.put(file.getFileName(), file);
         } else {
             WatchedFile.Status status = stateMachine.get(file.getStatus()).get(event.getEvent());
             file.setStatus(status);
