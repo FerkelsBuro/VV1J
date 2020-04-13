@@ -3,6 +3,7 @@ package domain.models;
 import domain.services.FileStateMachine;
 import infrastructure.IFileReader;
 
+import java.io.OutputStream;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,5 +37,9 @@ public class WatchedDirectory {
                 file.setDate(fileReader.getFileTime(file.getDirectory() + file.getFileName()));
             }
         }
+    }
+
+    public void sync(OutputStream outputStream) {
+
     }
 }
