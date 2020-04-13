@@ -52,10 +52,10 @@ public class WatchedDirectory {
         this.fileReader = fileReader;
     }
 
-    public void update(FileEvent event, Path path) {
+    public void update(FileEvent event, Path directory) {
         WatchedFile file = files.get(event.getFileName());
         if (file == null) {
-            file = fileReader.readReturnWatchedFile(path.toString(), WatchedFile.Status.CREATED);
+            file = fileReader.readReturnWatchedFile(directory.toString() + "\\" + event.getFileName(), WatchedFile.Status.CREATED);
             files.put(file.getFileName(), file);
         } else {
             WatchedFile.Status status = stateMachine.get(file.getStatus()).get(event.getEvent());
