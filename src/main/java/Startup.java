@@ -1,6 +1,6 @@
 import domain.models.FileEvent;
 import domain.services.DirectoryWatcher;
-import domain.services.WatchedDirectory;
+import domain.models.WatchedDirectory;
 import infrastructure.FileReader;
 
 import java.io.IOException;

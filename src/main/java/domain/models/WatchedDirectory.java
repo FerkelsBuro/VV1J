@@ -1,7 +1,6 @@
-package domain.services;
+package domain.models;
 
-import domain.models.FileEvent;
-import domain.models.WatchedFile;
+import domain.services.FileStateMachine;
 import infrastructure.IFileReader;
 
 import java.nio.file.Path;
@@ -11,6 +10,11 @@ import java.util.Map;
 public class WatchedDirectory {
     private Map<String, WatchedFile> files = new HashMap<>();
     private IFileReader fileReader;
+
+    public WatchedDirectory(Map<String, WatchedFile> files, IFileReader fileReader) {
+        this.files = files;
+        this.fileReader = fileReader;
+    }
 
     public WatchedDirectory(IFileReader fileReader) {
         this.fileReader = fileReader;

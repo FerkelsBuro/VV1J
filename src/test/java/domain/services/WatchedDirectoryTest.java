@@ -2,6 +2,7 @@ package domain.services;
 
 import domain.models.Alphabet;
 import domain.models.FileEvent;
+import domain.models.WatchedDirectory;
 import domain.models.WatchedFile;
 import infrastructure.FakeFileReader;
 import org.junit.Test;
