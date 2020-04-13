@@ -1,8 +1,10 @@
 package domain.models;
 
+import com.google.gson.Gson;
 import domain.services.FileStateMachine;
 import infrastructure.IFileReader;
 
+import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -39,7 +41,9 @@ public class WatchedDirectory {
         }
     }
 
-    public void sync(OutputStream outputStream) {
-
+    public void sync(OutputStream outputStream) throws IOException {
+        Gson gson = new Gson();
+        String output = gson.toJson(files);
+        outputStream.write(output.getBytes());
     }
 }
