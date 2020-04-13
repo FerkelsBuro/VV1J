@@ -3,9 +3,8 @@ package domain.services;
 import domain.models.Alphabet;
 import domain.models.FileEvent;
 import domain.models.WatchedFile;
-import infrastructure.FileReader;
+import infrastructure.IFileReader;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
@@ -43,13 +42,15 @@ public class WatchedDirectory {
             put(Alphabet.SYNC, WatchedFile.Status.INSYNC);
         }});
     }};
-
     private Map<String, WatchedFile> files = new HashMap<>();
-    private FileReader fileReader;
+    private IFileReader fileReader;
 
-    public WatchedDirectory(FileReader fileReader) {
-
+    public WatchedDirectory(IFileReader fileReader) {
         this.fileReader = fileReader;
+    }
+
+    public Map<String, WatchedFile> getFiles() {
+        return files;
     }
 
     public void update(FileEvent event, Path directory) {
@@ -61,7 +62,7 @@ public class WatchedDirectory {
             WatchedFile.Status status = stateMachine.get(file.getStatus()).get(event.getEvent());
             file.setStatus(status);
             if (status == WatchedFile.Status.MODIFIED) {
-                file.setDate(new FileReader().getFileTime(file.getDirectory() + file.getFileName()));
+                file.setDate(fileReader.getFileTime(file.getDirectory() + file.getFileName()));
             }
         }
     }
