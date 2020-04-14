@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import domain.services.FileStateMachine;
 import infrastructure.IFileReader;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Path;
@@ -30,7 +31,7 @@ public class WatchedDirectory {
     public void update(FileEvent event, Path directory) {
         WatchedFile file = files.get(event.getFileName());
         if (file == null) {
-            file = fileReader.readReturnWatchedFile(directory.toString() + "\\" + event.getFileName(), WatchedFile.Status.CREATED);
+            file = fileReader.readReturnWatchedFile(directory.toString() + File.separator + event.getFileName(), WatchedFile.Status.CREATED);
             files.put(file.getFileName(), file);
         } else {
             WatchedFile.Status status = FileStateMachine.getState(file, event.getEvent());
