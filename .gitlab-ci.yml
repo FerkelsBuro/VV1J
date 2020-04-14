@@ -2,15 +2,30 @@ stages:
   - build
   - execute
 
+image: gradle:6.3.0-jdk14
+
+variables:
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+
+before_script:
+  - export GRADLE_USER_HOME=`pwd`/.gradle
 
 build:
-  image: gradle:6.3.0-jdk14
   stage: build
-  script: cd src/main/java && javac domain/services/*.java domain/models/*.java
-  artifacts:
-    untracked: true
-#
-#execute:
-#  image: gradle:6.3.0-jdk14
-#  stage: execute
-#  script: cd src/main/java && java domain.services.DirectoryWatcher
+  script: gradle --build-cache assemble
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: push
+    paths:
+      - build
+      - .gradle
+
+test:
+  stage: test
+  script: gradle check
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: pull
+    paths:
+      - build
+      - .gradle
