@@ -7,7 +7,11 @@ import domain.models.WatchedFile;
 import infrastructure.FakeFileReader;
 import org.junit.Test;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,5 +42,33 @@ public class WatchedDirectoryTest {
         watchedDirectory.update(event, Path.of(watchedFile.getDirectory()));
 
         assertEquals(WatchedFile.Status.GONE, watchedDirectory.getFiles().get(event.getFileName()).getStatus());
+    }
+
+    @Test
+    public void sync_filesGetStatusSync() throws IOException {
+        var statuses = new ArrayList<>(Arrays.asList(
+                WatchedFile.Status.CREATED,
+                WatchedFile.Status.DELETED,
+                WatchedFile.Status.MODIFIED,
+                WatchedFile.Status.INSYNC,
+                WatchedFile.Status.GONE
+        ));
+
+        var fakeOutputStream = new OutputStream() {
+            @Override
+            public void write(int b) {
+            }
+        };
+
+        for (var status : statuses) {
+            var file = new WatchedFile("file", "", null, status);
+            WatchedDirectory watchedDirectory = new WatchedDirectory(new HashMap<>() {{
+                put(file.getFileName(), file);
+            }}, new FakeFileReader());
+
+            watchedDirectory.sync(fakeOutputStream);
+
+            assertEquals(file.getStatus(), FileStateMachine.getState(status, Alphabet.SYNC));
+        }
     }
 }

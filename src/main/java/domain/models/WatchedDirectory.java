@@ -46,5 +46,9 @@ public class WatchedDirectory {
         Gson gson = new Gson();
         String output = gson.toJson(files);
         outputStream.write(output.getBytes());
+
+        for(WatchedFile file :files.values()) {
+            file.setStatus(FileStateMachine.getState(file, Alphabet.SYNC));
+        }
     }
 }
