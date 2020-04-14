@@ -38,15 +38,15 @@ public class DirectoryWatcher {
             key.pollEvents().stream()
                     .filter(e -> !new File(e.context().toString()).isDirectory())
                     .map(e -> new FileEvent(e.context().toString(), Alphabet.convertWatchEvents(e.kind())))
-                    .forEach(e -> executeObservers(e, path));
+                    .forEach(this::executeObservers);
 
             key.reset();
         }
     }
 
-    private void executeObservers(FileEvent event, Path path) {
+    private void executeObservers(FileEvent event) {
         for (IFileObserver observer : observers) {
-            observer.onFileEvent(event, path);
+            observer.onFileEvent(event);
         }
     }
 
@@ -61,7 +61,7 @@ public class DirectoryWatcher {
     private void readFilesOnStart(Path path) throws IOException {
         Collection<String> fileNames = this.fileReader.readFileNames(path.toString());
         for (String fileName : fileNames) {
-            executeObservers(new FileEvent(fileName, Alphabet.CREATE), path);
+            executeObservers(new FileEvent(fileName, Alphabet.CREATE));
         }
     }
 }

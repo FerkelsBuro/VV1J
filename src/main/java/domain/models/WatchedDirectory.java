@@ -28,10 +28,10 @@ public class WatchedDirectory {
         return files;
     }
 
-    public void update(FileEvent event, Path directory) {
+    public void update(FileEvent event, String directory) {
         WatchedFile file = files.get(event.getFileName());
         if (file == null) {
-            file = fileReader.readReturnWatchedFile(directory.toString() + File.separator + event.getFileName(), WatchedFile.Status.CREATED);
+            file = fileReader.readReturnWatchedFile(directory + File.separator + event.getFileName(), WatchedFile.Status.CREATED);
             files.put(file.getFileName(), file);
         } else {
             WatchedFile.Status status = FileStateMachine.getState(file, event.getEvent());

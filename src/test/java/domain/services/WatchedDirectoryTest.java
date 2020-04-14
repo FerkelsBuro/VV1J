@@ -25,7 +25,7 @@ public class WatchedDirectoryTest {
 
         FileEvent event = new FileEvent("file", Alphabet.CREATE);
         Path path = Path.of("");
-        watchedDirectory.update(event, path);
+        watchedDirectory.update(event, path.toString());
 
         assertEquals(WatchedFile.Status.CREATED, watchedDirectory.getFiles().get(event.getFileName()).getStatus());
     }
@@ -39,7 +39,7 @@ public class WatchedDirectoryTest {
         WatchedDirectory watchedDirectory = new WatchedDirectory(files, new FakeFileReader());
 
         FileEvent event = new FileEvent(watchedFile.getFileName(), Alphabet.DELETE);
-        watchedDirectory.update(event, Path.of(watchedFile.getDirectory()));
+        watchedDirectory.update(event, watchedFile.getDirectory());
 
         assertEquals(WatchedFile.Status.GONE, watchedDirectory.getFiles().get(event.getFileName()).getStatus());
     }
