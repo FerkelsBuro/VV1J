@@ -1,5 +1,6 @@
 package domain.services;
 
+import core.observers.IFileObserver;
 import domain.models.Alphabet;
 import domain.models.FileEvent;
 import infrastructure.FileReader;
@@ -7,31 +8,45 @@ import infrastructure.FileReader;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.function.Consumer;
+import java.util.List;
 
 public class DirectoryWatcher {
     private FileReader fileReader;
+    private List<IFileObserver> observers;
+
 
     public DirectoryWatcher(FileReader fileReader) {
         this.fileReader = fileReader;
+        observers = new ArrayList<>();
     }
 
-    public void watch(Path path, Consumer<FileEvent> strategy) throws IOException, InterruptedException {
+    public void addObserver(IFileObserver observer) {
+        observers.add(observer);
+    }
+
+    public void watch(Path path) throws IOException, InterruptedException {
         WatchService watchService
                 = FileSystems.getDefault().newWatchService();
         registerWatcher(path, watchService);
 
-        readFilesOnStart(path, strategy);
+        readFilesOnStart(path);
 
         WatchKey key;
         while ((key = watchService.take()) != null) {
             key.pollEvents().stream()
                     .filter(e -> !new File(e.context().toString()).isDirectory())
                     .map(e -> new FileEvent(e.context().toString(), Alphabet.convertWatchEvents(e.kind())))
-                    .forEach(strategy);
+                    .forEach(e -> executeObservers(e, path));
 
             key.reset();
+        }
+    }
+
+    private void executeObservers(FileEvent event, Path path) {
+        for (IFileObserver observer : observers) {
+            observer.onFileEvent(event, path);
         }
     }
 
@@ -43,10 +58,10 @@ public class DirectoryWatcher {
                 StandardWatchEventKinds.ENTRY_MODIFY);
     }
 
-    private void readFilesOnStart(Path path, Consumer<FileEvent> strategy) throws IOException {
+    private void readFilesOnStart(Path path) throws IOException {
         Collection<String> fileNames = this.fileReader.readFileNames(path.toString());
         for (String fileName : fileNames) {
-            strategy.accept(new FileEvent(fileName, Alphabet.CREATE));
+            executeObservers(new FileEvent(fileName, Alphabet.CREATE), path);
         }
     }
 }
