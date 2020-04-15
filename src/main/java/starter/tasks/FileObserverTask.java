@@ -1,4 +1,4 @@
-package console.tasks;
+package starter.tasks;
 
 import core.observers.FileObserver;
 

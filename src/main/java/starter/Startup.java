@@ -1,8 +1,8 @@
-package console;
+package starter;
 
-import console.tasks.DirectoryWatcherTask;
-import console.tasks.FileObserverTask;
-import console.tasks.SyncTask;
+import starter.tasks.DirectoryWatcherTask;
+import starter.tasks.FileObserverTask;
+import starter.tasks.SyncTask;
 import core.observers.FileObserver;
 import domain.models.WatchedDirectory;
 import domain.services.DirectoryWatcher;
