@@ -15,7 +15,7 @@ public class Startup {
     public static void main(String[] args) {
         System.out.println("main_start");
 
-        Path path = args.length == 0 ? Paths.get(System.getProperty("user.dir")) : Paths.get(args[0]);
+        Path path = Paths.get(args.length == 0 ? System.getProperty("user.dir") : args[0]);
 
         Logger logger = Logger.getLogger(DirectoryWatcher.class.getName());
         FileReader fileReader = new FileReader();
