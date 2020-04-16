@@ -5,7 +5,6 @@ import domain.services.FileStateMachine;
 import infrastructure.IFileReader;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.HashMap;

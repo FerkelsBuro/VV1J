@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
 public class FileObserverTest {
 
     @Test
-    public void onFileEvent() {
+    public void onFileEvent_addFileEvent() {
         FileObserver fileObserver = new FileObserver(new WatchedDirectory(new FakeFileReader()), "");
         Collection<FileEvent> fileEvents = fileObserver.getFileEvents();
 

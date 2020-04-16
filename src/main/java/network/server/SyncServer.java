@@ -1,14 +1,12 @@
 package network.server;
 
 import domain.models.WatchedDirectory;
-import network.client.SyncClient;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.*;
+import java.util.Vector;
 
 public class SyncServer {
     private ServerSocket serverSocket = new ServerSocket(6868);
@@ -25,8 +23,7 @@ public class SyncServer {
     }
 
     public void sendData() throws IOException {
-        System.out.println("\n" + "connected clients: " + clients);
-        for(Socket socket : clients) {
+        for (Socket socket : clients) {
             OutputStream output = socket.getOutputStream();
             watchedDirectory.sync(output);
         }
