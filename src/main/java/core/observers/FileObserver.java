@@ -3,6 +3,8 @@ package core.observers;
 import domain.models.FileEvent;
 import domain.models.WatchedDirectory;
 
+import java.util.Arrays;
+import java.util.Date;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.logging.Logger;
@@ -38,8 +40,12 @@ public class FileObserver implements IFileObserver, Runnable {
                 watchedDirectory.update(event, path);
             }
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            logger.severe(new Date().toString() + " " + e.getMessage() + " " + Arrays.toString(e.getStackTrace()));
         }
+    }
+
+    public BlockingQueue<FileEvent> getFileEvents() {
+        return fileEvents;
     }
 }
 

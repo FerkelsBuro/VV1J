@@ -1,5 +1,6 @@
 package network.server;
 
+import core.loggers.StaticLogger;
 import network.client.SyncClient;
 import starter.tasks.DirectoryWatcherTask;
 
@@ -27,7 +28,7 @@ public class SyncServerTask implements Runnable {
             try {
                 clients.add(serverSocket.accept());
             } catch (IOException e) {
-                logger.severe(new Date().toString() + " " + e.getMessage() + " " + Arrays.toString(e.getStackTrace()));
+                StaticLogger.logException(e);
             }
         }
     }

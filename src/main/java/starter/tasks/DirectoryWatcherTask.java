@@ -1,5 +1,6 @@
 package starter.tasks;
 
+import core.loggers.StaticLogger;
 import domain.services.DirectoryWatcher;
 
 import java.io.IOException;
@@ -22,10 +23,8 @@ public class DirectoryWatcherTask implements Runnable{
     public void run() {
         try {
             directoryWatcher.watch(path);
-        } catch (IOException e) {
-            logger.severe(new Date().toString() + " " + e.getMessage() + " " + Arrays.toString(e.getStackTrace()));
-        } catch (InterruptedException e) {
-            logger.severe(new Date().toString() + " " + e.getMessage() + " " + Arrays.toString(e.getStackTrace()));
+        } catch (IOException | InterruptedException e) {
+            StaticLogger.logException(e);
         }
     }
 }

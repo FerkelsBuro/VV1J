@@ -12,11 +12,9 @@ import java.util.logging.Logger;
 
 public class SyncClient {
     private static Logger logger = Logger.getLogger(DirectoryWatcherTask.class.getName());;
-    private Socket clientSocket;
     private BufferedReader in;
 
     public SyncClient(Socket clientSocket) throws IOException {
-        this.clientSocket = clientSocket;
         in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
     }
 

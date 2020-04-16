@@ -1,5 +1,6 @@
 package starter.tasks;
 
+import core.loggers.StaticLogger;
 import domain.models.WatchedDirectory;
 
 import java.io.IOException;
@@ -29,7 +30,6 @@ public class SyncTask implements Runnable  {
                 watchedDirectory.sync(outputStream);
             }
         } catch (InterruptedException e) {
-            logger.severe(new Date().toString() + " " + e.getMessage() + " " + Arrays.toString(e.getStackTrace()));
-        }
+            StaticLogger.logException(e);        }
     }
 }

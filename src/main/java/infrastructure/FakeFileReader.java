@@ -3,18 +3,17 @@ package infrastructure;
 import domain.models.WatchedFile;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Collection;
 import java.util.Date;
 
 public class FakeFileReader implements IFileReader {
     @Override
-    public Collection<String> readPaths(String path) throws IOException {
+    public Collection<String> readPaths(String path) {
         return null;
     }
 
     @Override
-    public Collection<String> readFileNames(String path) throws IOException {
+    public Collection<String> readFileNames(String path) {
         return null;
     }
 

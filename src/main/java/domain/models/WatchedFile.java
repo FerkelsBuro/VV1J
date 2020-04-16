@@ -23,10 +23,6 @@ public class WatchedFile {
         return directory;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
     public void setDate(Date date) {
         this.date = date;
     }
