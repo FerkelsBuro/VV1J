@@ -28,8 +28,6 @@ public class SyncTask implements Runnable  {
                 System.out.println("ExecuteSync");
                 watchedDirectory.sync(outputStream);
             }
-        } catch (IOException e) {
-            logger.severe(new Date().toString() + " " + e.getMessage() + " " + Arrays.toString(e.getStackTrace()));
         } catch (InterruptedException e) {
             logger.severe(new Date().toString() + " " + e.getMessage() + " " + Arrays.toString(e.getStackTrace()));
         }

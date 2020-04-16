@@ -7,6 +7,7 @@ import infrastructure.IFileReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,10 +42,11 @@ public class WatchedDirectory {
         }
     }
 
-    public void sync(OutputStream outputStream) throws IOException {
+    public void sync(OutputStream outputStream) {
         Gson gson = new Gson();
         String output = gson.toJson(files);
-        outputStream.write(output.getBytes());
+        PrintWriter writer = new PrintWriter(outputStream, true);
+        writer.println(output);
 
         for (WatchedFile file : files.values()) {
             file.setStatus(FileStateMachine.getState(file, Alphabet.SYNC));

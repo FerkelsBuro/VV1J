@@ -25,8 +25,7 @@ public class SyncClient {
         try {
             SyncClient syncClient = new SyncClient(new Socket("127.0.0.1", 6868));
             while(true) {
-                System.out.println("output: ");
-                System.out.println(syncClient.in.readLine());
+                logger.info(syncClient.in.readLine());
             }
         } catch (IOException e) {
             logger.severe(new Date().toString() + " " + e.getMessage() + " " + Arrays.toString(e.getStackTrace()));
