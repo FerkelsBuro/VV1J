@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.logging.Logger;
 
 public class SyncClient {
-    private static Logger logger = Logger.getLogger(DirectoryWatcherTask.class.getName());;
+    private static Logger logger = Logger.getLogger(DirectoryWatcherTask.class.getName());
     private BufferedReader in;
 
     public SyncClient(Socket clientSocket) throws IOException {
