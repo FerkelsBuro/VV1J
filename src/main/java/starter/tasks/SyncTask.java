@@ -3,16 +3,11 @@ package starter.tasks;
 import core.loggers.StaticLogger;
 import domain.models.WatchedDirectory;
 
-import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.logging.Logger;
 
-public class SyncTask implements Runnable  {
+public class SyncTask implements Runnable {
     private WatchedDirectory watchedDirectory;
     private OutputStream outputStream;
-    private Logger logger = Logger.getLogger(SyncTask.class.getName());
 
 
     public SyncTask(WatchedDirectory watchedDirectory, OutputStream outputStream) {
@@ -30,6 +25,7 @@ public class SyncTask implements Runnable  {
                 watchedDirectory.sync(outputStream);
             }
         } catch (InterruptedException e) {
-            StaticLogger.logException(e);        }
+            StaticLogger.logException(e);
+        }
     }
 }

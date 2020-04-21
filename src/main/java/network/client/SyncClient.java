@@ -18,15 +18,11 @@ public class SyncClient {
         in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
     }
 
-    public String getNextLine() throws IOException {
-        return in.readLine();
-    }
-
     public static void main(String[] args) {
         System.out.println("client started\n");
         try {
             SyncClient syncClient = new SyncClient(new Socket("127.0.0.1", 6868));
-            while(true) {
+            while (true) {
                 logger.info(syncClient.getNextLine());
             }
         } catch (IOException e) {
@@ -34,5 +30,9 @@ public class SyncClient {
         }
 
 
+    }
+
+    public String getNextLine() throws IOException {
+        return in.readLine();
     }
 }
