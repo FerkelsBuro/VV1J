@@ -8,6 +8,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Vector;
 
+/**
+ * SyncServer has a list of clients and a WatchedDirectory
+ * It can send all clients the output of WatchedDirectory.sync()
+ */
 public class SyncServer {
     private ServerSocket serverSocket = new ServerSocket(6868);
     private Vector<Socket> clients = new Vector<>();

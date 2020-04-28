@@ -1,15 +1,17 @@
 package network.client;
 
+import core.loggers.StaticLogger;
 import starter.tasks.DirectoryWatcherTask;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.logging.Logger;
 
+/**
+ * SyncClient that doesn't do a whole lot except for logging
+ */
 public class SyncClient {
     private static Logger logger = Logger.getLogger(DirectoryWatcherTask.class.getName());
     private BufferedReader in;
@@ -25,7 +27,7 @@ public class SyncClient {
                 logger.info(syncClient.getNextLine());
             }
         } catch (IOException e) {
-            logger.severe(new Date().toString() + " " + e.getMessage() + " " + Arrays.toString(e.getStackTrace()));
+            StaticLogger.logException(e);
         }
 
 

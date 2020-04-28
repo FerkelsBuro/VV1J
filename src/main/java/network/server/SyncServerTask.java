@@ -7,6 +7,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Collection;
 
+/**
+ * Thread that accepts clients for the server
+ */
 public class SyncServerTask implements Runnable {
     private final ServerSocket serverSocket;
     private final Collection<Socket> clients;

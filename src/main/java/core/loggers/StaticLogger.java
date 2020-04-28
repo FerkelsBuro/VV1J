@@ -6,6 +6,9 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.logging.Logger;
 
+/**
+ * StaticLogger that allows to log exceptions
+ */
 public class StaticLogger {
     private static Logger logger = Logger.getLogger(DirectoryWatcherTask.class.getName());
 

@@ -10,6 +10,9 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Data-structure that saves files in a directory as a Map of WatchedFiles
+ */
 public class WatchedDirectory {
     private Map<String, WatchedFile> files = new HashMap<>();
     private IFileReader fileReader;

@@ -13,6 +13,9 @@ import java.util.LinkedList;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * FileReader that can read files of a directory (doesn't read files of sub-directories)
+ */
 public class FileReader implements IFileReader {
     @Override
     public Collection<String> readPaths(String path) throws IOException {

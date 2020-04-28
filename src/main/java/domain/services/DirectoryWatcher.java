@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Watches the files of a directory and notifies IFileObservers for any changes to files
+ */
 public class DirectoryWatcher {
     private FileReader fileReader;
     private List<IFileObserver> observers;

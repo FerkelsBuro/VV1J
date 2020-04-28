@@ -6,6 +6,9 @@ import java.io.File;
 import java.util.Collection;
 import java.util.Date;
 
+/**
+ * FakeFileReader for test-methods
+ */
 public class FakeFileReader implements IFileReader {
     @Override
     public Collection<String> readPaths(String path) {

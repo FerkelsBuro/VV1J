@@ -2,6 +2,9 @@ package domain.models;
 
 import java.util.Date;
 
+/**
+ * contains most important attributes of a file and their status
+ */
 public class WatchedFile {
     private final String fileName;
     private final String directory;
