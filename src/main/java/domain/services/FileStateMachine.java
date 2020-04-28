@@ -39,6 +39,9 @@ public class FileStateMachine {
         }});
     }};
 
+    private FileStateMachine() {
+    }
+
     public static WatchedFile.Status getState(WatchedFile.Status status, Alphabet input) {
         return stateMachine.get(status).get(input);
     }

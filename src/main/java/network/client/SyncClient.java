@@ -19,7 +19,6 @@ public class SyncClient {
     }
 
     public static void main(String[] args) {
-        System.out.println("client started\n");
         try {
             SyncClient syncClient = new SyncClient(new Socket("127.0.0.1", 6868));
             while (true) {

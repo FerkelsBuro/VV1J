@@ -32,7 +32,7 @@ public class FileObserver implements IFileObserver, Runnable {
             while (true) {
                 FileEvent event = fileEvents.take();
                 logger.info(
-                        "Event kind: " + event.getEvent()
+                        () -> "Event kind: " + event.getEvent()
                                 + "\nFile affected: " + event.getFileName()
                                 + "\nDirectory: " + path + "\n");
 

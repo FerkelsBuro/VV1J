@@ -21,7 +21,6 @@ public class SyncTask implements Runnable {
         try {
             while (true) {
                 Thread.sleep(1000);
-                System.out.println("ExecuteSync");
                 watchedDirectory.sync(outputStream);
             }
         } catch (InterruptedException e) {
