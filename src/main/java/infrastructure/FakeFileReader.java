@@ -4,6 +4,7 @@ import domain.models.WatchedFile;
 
 import java.io.File;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 
 /**
@@ -12,12 +13,12 @@ import java.util.Date;
 public class FakeFileReader implements IFileReader {
     @Override
     public Collection<String> readPaths(String path) {
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
     public Collection<String> readFileNames(String path) {
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
