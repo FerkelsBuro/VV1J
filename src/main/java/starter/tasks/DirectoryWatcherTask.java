@@ -19,8 +19,11 @@ public class DirectoryWatcherTask implements Runnable {
     public void run() {
         try {
             directoryWatcher.watch(path);
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
             StaticLogger.logException(e);
+        } catch (InterruptedException e) {
+            StaticLogger.logException(e);
+            Thread.currentThread().interrupt();
         }
     }
 }

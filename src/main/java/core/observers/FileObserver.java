@@ -44,6 +44,7 @@ public class FileObserver implements IFileObserver, Runnable {
             }
         } catch (InterruptedException e) {
             StaticLogger.logException(e);
+            Thread.currentThread().interrupt();
         }
     }
 

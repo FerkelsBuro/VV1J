@@ -25,6 +25,7 @@ public class SyncTask implements Runnable {
             }
         } catch (InterruptedException e) {
             StaticLogger.logException(e);
+            Thread.currentThread().interrupt();
         }
     }
 }
