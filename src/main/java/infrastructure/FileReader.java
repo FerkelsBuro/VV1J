@@ -19,12 +19,17 @@ import java.util.stream.Stream;
 public class FileReader implements IFileReader {
     @Override
     public Collection<String> readPaths(String path) throws IOException {
-        Stream<Path> paths = Files.walk(Paths.get(path), 1);
-
-        return paths
-                .filter(Files::isRegularFile)
-                .map(Path::toString)
-                .collect(Collectors.toCollection(LinkedList::new));
+        Stream<Path> paths = null;
+        try {
+            paths = Files.walk(Paths.get(path), 1);
+            return paths
+                    .filter(Files::isRegularFile)
+                    .map(Path::toString)
+                    .collect(Collectors.toCollection(LinkedList::new));
+        } finally {
+            assert paths != null;
+            paths.close();
+        }
     }
 
     @Override
