@@ -16,9 +16,8 @@ public class ServerTask implements Runnable {
     @Override
     public void run() {
         try {
-            SyncServer syncServer = new SyncServer(watchedDirectory);
+            new Thread(new SyncServer(watchedDirectory)).start();
             while (!Thread.currentThread().isInterrupted()) {
-                syncServer.sendData();
                 Thread.sleep(1000);
             }
         } catch (IOException e) {

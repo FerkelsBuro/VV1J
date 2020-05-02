@@ -1,35 +1,34 @@
 package network.server;
 
+import core.loggers.StaticLogger;
 import domain.models.WatchedDirectory;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Vector;
 
 /**
  * SyncServer has a list of clients and a WatchedDirectory
  * It can send all clients the output of WatchedDirectory.sync()
  */
-public class SyncServer {
+public class SyncServer implements Runnable {
     private ServerSocket serverSocket = new ServerSocket(6868);
-    private Vector<Socket> clients = new Vector<>();
     private WatchedDirectory watchedDirectory;
 
     public SyncServer(WatchedDirectory watchedDirectory) throws IOException {
         this.watchedDirectory = watchedDirectory;
-        acceptClients();
     }
 
-    private void acceptClients() {
-        new Thread(new SyncServerTask(serverSocket, clients)).start();
-    }
-
-    public void sendData() throws IOException {
-        for (Socket socket : clients) {
-            OutputStream output = socket.getOutputStream();
-            watchedDirectory.sync(output);
+    @Override
+    public void run() {
+        while (!Thread.currentThread().isInterrupted()) {
+            try {
+                Socket client = serverSocket.accept();
+                new Thread(new SyncClientHandler(client, watchedDirectory)).start();
+            } catch (IOException e) {
+                StaticLogger.logException(e);
+                Thread.currentThread().interrupt();
+            }
         }
     }
 }
