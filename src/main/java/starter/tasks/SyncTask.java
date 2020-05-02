@@ -19,7 +19,7 @@ public class SyncTask implements Runnable {
     @Override
     public void run() {
         try {
-            while (true) {
+            while (!Thread.currentThread().isInterrupted()) {
                 Thread.sleep(1000);
                 watchedDirectory.sync(outputStream);
             }

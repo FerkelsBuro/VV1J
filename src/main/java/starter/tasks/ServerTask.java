@@ -17,7 +17,7 @@ public class ServerTask implements Runnable {
     public void run() {
         try {
             SyncServer syncServer = new SyncServer(watchedDirectory);
-            while (true) {
+            while (!Thread.currentThread().isInterrupted()) {
                 syncServer.sendData();
                 Thread.sleep(1000);
             }

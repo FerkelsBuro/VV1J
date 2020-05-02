@@ -21,7 +21,7 @@ public class SyncServerTask implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
+        while (!Thread.currentThread().isInterrupted()) {
             try {
                 clients.add(serverSocket.accept());
             } catch (IOException e) {

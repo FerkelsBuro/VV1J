@@ -23,7 +23,7 @@ public class SyncClient {
     public static void main(String[] args) {
         try {
             SyncClient syncClient = new SyncClient(new Socket("127.0.0.1", 6868));
-            while (true) {
+            while (!Thread.currentThread().isInterrupted()) {
                 logger.info(syncClient.getNextLine());
             }
         } catch (IOException e) {

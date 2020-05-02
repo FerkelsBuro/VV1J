@@ -33,7 +33,7 @@ public class FileObserver implements IFileObserver, Runnable {
     public void run() {
 
         try {
-            while (true) {
+            while (!Thread.currentThread().isInterrupted()) {
                 FileEvent event = fileEvents.take();
                 logger.info(
                         () -> "Event kind: " + event.getEvent()
