@@ -2,51 +2,42 @@ package domain.services;
 
 import domain.models.Alphabet;
 import domain.models.WatchedFile;
+import domain.models.WatchedFile.Status;
 
 import java.util.HashMap;
 
 public class FileStateMachine {
-    private static final HashMap<WatchedFile.Status, HashMap<Alphabet, WatchedFile.Status>> stateMachine = new HashMap<>() {{
-        put(WatchedFile.Status.CREATED, new HashMap<>() {{
-            put(Alphabet.CREATE, WatchedFile.Status.CREATED);
-            put(Alphabet.DELETE, WatchedFile.Status.GONE);
-            put(Alphabet.MODIFY, WatchedFile.Status.CREATED);
-            put(Alphabet.SYNC, WatchedFile.Status.INSYNC);
-        }});
-        put(WatchedFile.Status.DELETED, new HashMap<>() {{
-            put(Alphabet.CREATE, WatchedFile.Status.MODIFIED);
-            put(Alphabet.DELETE, WatchedFile.Status.DELETED);
-            put(Alphabet.MODIFY, WatchedFile.Status.MODIFIED);
-            put(Alphabet.SYNC, WatchedFile.Status.GONE);
-        }});
-        put(WatchedFile.Status.GONE, new HashMap<>() {{
-            put(Alphabet.CREATE, WatchedFile.Status.CREATED);
-            put(Alphabet.DELETE, WatchedFile.Status.GONE);
-            put(Alphabet.MODIFY, WatchedFile.Status.GONE);
-            put(Alphabet.SYNC, WatchedFile.Status.GONE);
-        }});
-        put(WatchedFile.Status.INSYNC, new HashMap<>() {{
-            put(Alphabet.CREATE, WatchedFile.Status.MODIFIED);
-            put(Alphabet.DELETE, WatchedFile.Status.DELETED);
-            put(Alphabet.MODIFY, WatchedFile.Status.MODIFIED);
-            put(Alphabet.SYNC, WatchedFile.Status.INSYNC);
-        }});
-        put(WatchedFile.Status.MODIFIED, new HashMap<>() {{
-            put(Alphabet.CREATE, WatchedFile.Status.MODIFIED);
-            put(Alphabet.DELETE, WatchedFile.Status.DELETED);
-            put(Alphabet.MODIFY, WatchedFile.Status.MODIFIED);
-            put(Alphabet.SYNC, WatchedFile.Status.INSYNC);
-        }});
-    }};
+    private static final HashMap<Status, HashMap<Alphabet, Status>> stateMachine = new HashMap<>();
+
+
+    static {
+        addStatusReaction(Status.CREATED, Status.CREATED, Status.GONE, Status.CREATED, Status.INSYNC);
+        addStatusReaction(Status.DELETED, Status.MODIFIED, Status.DELETED, Status.MODIFIED, Status.GONE);
+        addStatusReaction(Status.GONE, Status.CREATED, Status.GONE, Status.GONE, Status.GONE);
+        addStatusReaction(Status.INSYNC, Status.MODIFIED, Status.DELETED, Status.MODIFIED, Status.INSYNC);
+        addStatusReaction(Status.MODIFIED, Status.MODIFIED, Status.DELETED, Status.MODIFIED, Status.INSYNC);
+
+    }
 
     private FileStateMachine() {
     }
 
-    public static WatchedFile.Status getState(WatchedFile.Status status, Alphabet input) {
+    private static void addStatusReaction(Status currentStatus, Status afterCreate,
+                                          Status afterDelete, Status afterModify,
+                                          Status afterSync) {
+        HashMap<Alphabet, Status> temp = new HashMap<>();
+        temp.put(Alphabet.CREATE, afterCreate);
+        temp.put(Alphabet.DELETE, afterDelete);
+        temp.put(Alphabet.MODIFY, afterModify);
+        temp.put(Alphabet.SYNC, afterSync);
+        stateMachine.put(currentStatus, temp);
+    }
+
+    public static Status getState(Status status, Alphabet input) {
         return stateMachine.get(status).get(input);
     }
 
-    public static WatchedFile.Status getState(WatchedFile file, Alphabet input) {
+    public static Status getState(WatchedFile file, Alphabet input) {
         return stateMachine.get(file.getStatus()).get(input);
     }
 }
