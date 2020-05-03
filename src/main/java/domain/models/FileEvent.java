@@ -6,6 +6,11 @@ public class FileEvent {
     private final String fileName;
     private final Alphabet event;
 
+    public FileEvent(String fileName, Alphabet event) {
+        this.fileName = fileName;
+        this.event = event;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -18,11 +23,6 @@ public class FileEvent {
     @Override
     public int hashCode() {
         return Objects.hash(fileName, event);
-    }
-
-    public FileEvent(String fileName, Alphabet event) {
-        this.fileName = fileName;
-        this.event = event;
     }
 
     public String getFileName() {
