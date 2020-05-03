@@ -45,13 +45,13 @@ public class WatchedDirectory {
     }
 
     public void sync(OutputStream outputStream) {
+        for (WatchedFile file : files.values()) {
+            file.setStatus(FileStateMachine.getState(file, Alphabet.SYNC));
+        }
+
         Gson gson = new Gson();
         String output = gson.toJson(files);
         PrintWriter writer = new PrintWriter(outputStream, true);
         writer.println(output);
-
-        for (WatchedFile file : files.values()) {
-            file.setStatus(FileStateMachine.getState(file, Alphabet.SYNC));
-        }
     }
 }
