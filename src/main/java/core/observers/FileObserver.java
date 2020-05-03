@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  * FileObserver that listens for FileEvents and updates a WatchedDirectory with those FileEvents
  * Gets notified on each FileEvent and logs them
  */
-public class FileObserver implements IFileObserver, Runnable {
+public class FileObserver implements IFileObserver {
     private Logger logger = Logger.getLogger(FileObserver.class.getName());
     private WatchedDirectory watchedDirectory;
     private BlockingQueue<FileEvent> fileEvents = new LinkedBlockingQueue<>();
