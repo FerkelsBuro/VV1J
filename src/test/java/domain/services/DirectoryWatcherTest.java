@@ -19,8 +19,11 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class DirectoryWatcherTest {
-    IFileObserver fileObserver;
-    DirectoryWatcher directoryWatcher;
+    private IFileObserver fileObserver;
+    private DirectoryWatcher directoryWatcher;
+    private final Path directory = Paths.get(System.getProperty("user.dir") + File.separator + "src"
+            + File.separator + "test" + File.separator + "testFiles");
+
 
     @Before
     public void Setup() {
@@ -30,17 +33,16 @@ public class DirectoryWatcherTest {
 
     @Test
     public void watch() throws IOException, InterruptedException {
-        Path path = Paths.get(System.getProperty("user.dir") + File.separator + "test");
-        Path filePath = Paths.get(path.toString() + File.separator + "testfile.txt");
+        String fileName = "testfile.txt";
+        Path filePath = Paths.get(directory + File.separator + fileName);
 
-        Files.createDirectory(path);
         Files.createFile(filePath);
 
         directoryWatcher.addObserver(fileObserver);
 
         Thread thread = new Thread(() -> {
             try {
-                directoryWatcher.watch(path);
+                directoryWatcher.watch(directory);
             } catch (IOException | InterruptedException ignored) {
             }
         });
@@ -50,8 +52,7 @@ public class DirectoryWatcherTest {
         thread.interrupt();
 
         Files.delete(filePath);
-        Files.delete(path);
 
-        verify(fileObserver).onFileEvent(new FileEvent("testfile.txt", Alphabet.CREATE));
+        verify(fileObserver).onFileEvent(new FileEvent(fileName, Alphabet.CREATE));
     }
 }
