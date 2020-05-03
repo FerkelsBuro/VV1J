@@ -4,6 +4,7 @@ import core.observers.IFileObserver;
 import domain.models.Alphabet;
 import domain.models.FileEvent;
 import infrastructure.FileReader;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -51,8 +53,13 @@ public class DirectoryWatcherTest {
         Thread.sleep(100);
         thread.interrupt();
 
-        Files.delete(filePath);
-
         verify(fileObserver).onFileEvent(new FileEvent(fileName, Alphabet.CREATE));
+    }
+
+    @After
+    public void TearDown() {
+        for(File file: Objects.requireNonNull(new File(directory.toString()).listFiles()))
+            if (!file.isDirectory())
+                file.delete();
     }
 }
