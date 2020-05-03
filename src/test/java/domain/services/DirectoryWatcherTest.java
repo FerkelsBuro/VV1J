@@ -59,7 +59,7 @@ public class DirectoryWatcherTest {
     @After
     public void TearDown() {
         for(File file: Objects.requireNonNull(new File(directory.toString()).listFiles()))
-            if (!file.isDirectory())
+            if (!file.isDirectory() && !file.getName().equals(".gitkeep.txt"))
                 file.delete();
     }
 }
