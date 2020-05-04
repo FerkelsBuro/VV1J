@@ -29,6 +29,13 @@ public class DirectoryWatcher {
         observers.add(observer);
     }
 
+    /**
+     * Watches a directory for changes to files (each already existing file counts as CREATED on first read).
+     * Notifies listening observers about these FileEvents
+     * @param path Path of the directory to be watched
+     * @throws IOException
+     * @throws InterruptedException
+     */
     public void watch(Path path) throws IOException, InterruptedException {
         WatchService watchService
                 = FileSystems.getDefault().newWatchService();
