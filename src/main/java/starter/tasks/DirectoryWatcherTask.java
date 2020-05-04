@@ -6,6 +6,9 @@ import domain.services.DirectoryWatcher;
 import java.io.IOException;
 import java.nio.file.Path;
 
+/**
+ * Thread that watches a directory for changes
+ */
 public class DirectoryWatcherTask implements Runnable {
     private DirectoryWatcher directoryWatcher;
     private Path path;

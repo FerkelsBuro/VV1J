@@ -5,6 +5,9 @@ import java.nio.file.WatchEvent;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Alphabet for the FileStateMachine
+ */
 public enum Alphabet {
     CREATE,
     DELETE,

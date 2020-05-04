@@ -6,6 +6,9 @@ import domain.models.WatchedFile.Status;
 
 import java.util.EnumMap;
 
+/**
+ * Manages the state-machine used for file-statuses and is able to provide the new status for a file after an event happened
+ */
 public class FileStateMachine {
     private static final EnumMap<Status, EnumMap<Alphabet, Status>> stateMachine = new EnumMap<>(Status.class);
 

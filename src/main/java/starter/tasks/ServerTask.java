@@ -6,6 +6,9 @@ import network.server.SyncServer;
 
 import java.io.IOException;
 
+/**
+ * The SyncServer is started in this Thread
+ */
 public class ServerTask implements Runnable {
     private WatchedDirectory watchedDirectory;
 

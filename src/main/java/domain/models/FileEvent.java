@@ -2,6 +2,9 @@ package domain.models;
 
 import java.util.Objects;
 
+/**
+ * Contains the Name and the current event(Alphabet) of that file
+ */
 public class FileEvent {
     private final String fileName;
     private final Alphabet event;

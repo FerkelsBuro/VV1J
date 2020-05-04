@@ -12,6 +12,9 @@ import starter.tasks.SyncTask;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/**
+ * Contains the main-method of this program where all the needed Threads are started
+ */
 public class Startup {
     public static void main(String[] args) {
         Path path = Paths.get(args.length == 0 ? System.getProperty("user.dir") : args[0]);
@@ -25,7 +28,7 @@ public class Startup {
 
         new Thread(new DirectoryWatcherTask(directoryWatcher, path)).start();
         new Thread(new FileObserverTask(fileObserver)).start();
-        new Thread(new SyncTask(watchedDirectory, System.out)).start();
+        new Thread(new SyncTask(watchedDirectory, System.out, 10_000)).start();
         new Thread(new ServerTask(watchedDirectory)).start();
     }
 }

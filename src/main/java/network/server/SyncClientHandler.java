@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
 
+/**
+ * Thread that handles a client of the SyncServer
+ */
 public class SyncClientHandler implements Runnable {
     private OutputStream output;
     private WatchedDirectory watchedDirectory;
