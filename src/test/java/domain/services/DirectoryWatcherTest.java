@@ -51,7 +51,6 @@ public class DirectoryWatcherTest {
 
         thread.start();
         Thread.sleep(100);
-        thread.interrupt();
 
         verify(fileObserver).onFileEvent(new FileEvent(fileName, Alphabet.CREATE));
     }
