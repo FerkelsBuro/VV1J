@@ -20,7 +20,7 @@ public class SyncServerTest {
     @Test
     public void sendData_integrationTest() throws IOException {
 
-        WatchedFile watchedFile = new WatchedFile("file", "d", new Date(), WatchedFile.Status.CREATED);
+        WatchedFile watchedFile = new WatchedFile("file", "d", WatchedFile.Status.CREATED);
         Map<String, WatchedFile> files = new HashMap<>();
         files.put(watchedFile.getFileName(), watchedFile);
 

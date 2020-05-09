@@ -47,6 +47,6 @@ public class FileReader implements IFileReader {
     @Override
     public WatchedFile readReturnWatchedFile(String path, WatchedFile.Status status) {
         File file = new File(path);
-        return new WatchedFile(file.getName(), file.getParent(), getFileTime(path), status);
+        return new WatchedFile(file.getName(), file.getParent(), status);
     }
 }

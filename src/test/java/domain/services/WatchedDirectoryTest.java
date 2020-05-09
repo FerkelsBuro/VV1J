@@ -32,7 +32,7 @@ public class WatchedDirectoryTest {
 
     @Test
     public void update_deleteCreatedFile() {
-        WatchedFile watchedFile = new WatchedFile("file", "", null, WatchedFile.Status.CREATED);
+        WatchedFile watchedFile = new WatchedFile("file", "", WatchedFile.Status.CREATED);
         Map<String, WatchedFile> files = new HashMap<>() {{
             put(watchedFile.getFileName(), watchedFile);
         }};
@@ -61,7 +61,7 @@ public class WatchedDirectoryTest {
         };
 
         for (var status : statuses) {
-            var file = new WatchedFile("file", "", null, status);
+            var file = new WatchedFile("file", "", status);
             WatchedDirectory watchedDirectory = new WatchedDirectory(new HashMap<>() {{
                 put(file.getFileName(), file);
             }}, new FakeFileReader());
