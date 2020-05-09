@@ -14,7 +14,5 @@ public interface IFileReader {
 
     Collection<String> readFileNames(String path) throws IOException;
 
-    Date getFileTime(String path);
-
     WatchedFile readReturnWatchedFile(String path, WatchedFile.Status status);
 }

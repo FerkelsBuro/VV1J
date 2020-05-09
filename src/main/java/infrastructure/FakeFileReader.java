@@ -22,11 +22,6 @@ public class FakeFileReader implements IFileReader {
     }
 
     @Override
-    public Date getFileTime(String path) {
-        return null;
-    }
-
-    @Override
     public WatchedFile readReturnWatchedFile(String path, WatchedFile.Status status) {
         File file = new File(path);
         return new WatchedFile(file.getName(), file.getParent(), status);
