@@ -11,10 +11,10 @@ public class WatchedFile {
     private Date date;
     private Status status;
 
-    public WatchedFile(String fileName, String directory, Date date, Status status) {
+    public WatchedFile(String fileName, String directory, Status status) {
         this.fileName = fileName;
         this.directory = directory;
-        this.date = date;
+        this.date = new Date(System.currentTimeMillis());
         this.status = status;
     }
 
@@ -26,15 +26,12 @@ public class WatchedFile {
         return directory;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
     public Status getStatus() {
         return status;
     }
 
     public void setStatus(Status status) {
+        date.setTime(System.currentTimeMillis());
         this.status = status;
     }
 

@@ -44,9 +44,6 @@ public class WatchedDirectory {
         } else {
             WatchedFile.Status status = FileStateMachine.getState(file, event.getEvent());
             file.setStatus(status);
-            if (status == WatchedFile.Status.MODIFIED) {
-                file.setDate(fileReader.getFileTime(file.getDirectory() + file.getFileName()));
-            }
         }
     }
 
