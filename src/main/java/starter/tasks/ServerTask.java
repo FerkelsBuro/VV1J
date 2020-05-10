@@ -20,14 +20,8 @@ public class ServerTask implements Runnable {
     public void run() {
         try {
             new Thread(new SyncServer(watchedDirectory)).start();
-            while (!Thread.currentThread().isInterrupted()) {
-                Thread.sleep(1000);
-            }
         } catch (IOException e) {
             StaticLogger.logException(e);
-        } catch (InterruptedException e) {
-            StaticLogger.logException(e);
-            Thread.currentThread().interrupt();
         }
     }
 }
