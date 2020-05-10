@@ -1,6 +1,7 @@
 package network.client;
 
 import core.loggers.StaticLogger;
+import network.server.SyncServer;
 import starter.tasks.DirectoryWatcherTask;
 
 import java.io.BufferedReader;
@@ -22,7 +23,7 @@ public class SyncClient {
 
     public static void main(String[] args) {
         try {
-            SyncClient syncClient = new SyncClient(new Socket("127.0.0.1", 6868));
+            SyncClient syncClient = new SyncClient(new Socket("127.0.0.1", SyncServer.PORT));
             while (!Thread.currentThread().isInterrupted()) {
                 logger.info(syncClient.getNextLine());
             }

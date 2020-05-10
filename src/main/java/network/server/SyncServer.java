@@ -12,7 +12,8 @@ import java.net.Socket;
  * It can send all clients the output of WatchedDirectory.sync()
  */
 public class SyncServer implements Runnable {
-    private ServerSocket serverSocket = new ServerSocket(6868);
+    public static final int PORT = 6868;
+    private ServerSocket serverSocket = new ServerSocket(PORT);
     private WatchedDirectory watchedDirectory;
 
     public SyncServer(WatchedDirectory watchedDirectory) throws IOException {
