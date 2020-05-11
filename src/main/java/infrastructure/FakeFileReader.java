@@ -5,7 +5,6 @@ import domain.models.WatchedFile;
 import java.io.File;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 
 /**
  * FakeFileReader for test-methods
