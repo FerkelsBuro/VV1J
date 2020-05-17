@@ -9,7 +9,7 @@ import services.RandomOrderGenerator;
 import java.nio.charset.StandardCharsets;
 
 public class Startup {
-    private final static String QUEUE_NAME = "Orders";
+    private final static String QUEUE_NAME = "OpenOrders";
     private final static Gson gson = new Gson();
 
     public static void main(String[] argv) throws Exception {
