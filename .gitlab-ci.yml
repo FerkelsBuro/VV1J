@@ -4,10 +4,26 @@ stages:
 
 image: gradle:6.3.0-jdk14
 
+#build:
+#  stage: build
+#  script:
+#    - cd erstesProjektVV
+#    - gradle assemble
+#
+#test:
+#  stage: test
+#  script:
+#   - cd erstesProjektVV
+#   - gradle test
+
 build:
   stage: build
-  script: gradle assemble
+  script:
+    - cd messaging/CustomerService
+    - gradle assemble
 
 test:
   stage: test
-  script: gradle test
+  script:
+    - cd messaging/CustomerService
+    - gradle test
