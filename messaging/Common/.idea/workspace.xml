@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cb2d7248-2eec-4b9c-ba59-cdc79038a106" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/infrastructure/MessageReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/infrastructure/MessageReceiver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/infrastructure/MessageSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/infrastructure/MessageSender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccountingService/src/main/java/starter/Startup.java" beforeDir="false" afterPath="$PROJECT_DIR$/../AccountingService/src/main/java/starter/Startup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CustomerService/src/main/java/starter/Startup.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CustomerService/src/main/java/starter/Startup.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -28,8 +28,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/infrastructure/MessageSender.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" column="5" lean-forward="true" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+            <state relative-caret-position="391">
+              <caret line="23" column="62" selection-start-line="23" selection-start-column="62" selection-end-line="23" selection-end-column="62" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -40,8 +40,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/infrastructure/MessageReceiver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+            <state relative-caret-position="391">
+              <caret line="23" column="72" selection-start-line="23" selection-start-column="72" selection-end-line="23" selection-end-column="72" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -181,7 +181,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2705000" />
+    <option name="totallyTimeSpent" value="3585000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
@@ -236,8 +236,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/infrastructure/MessageSender.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="5" lean-forward="true" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+        <state relative-caret-position="391">
+          <caret line="23" column="62" selection-start-line="23" selection-start-column="62" selection-end-line="23" selection-end-column="62" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -246,8 +246,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/infrastructure/MessageReceiver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+        <state relative-caret-position="391">
+          <caret line="23" column="72" selection-start-line="23" selection-start-column="72" selection-end-line="23" selection-end-column="72" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
