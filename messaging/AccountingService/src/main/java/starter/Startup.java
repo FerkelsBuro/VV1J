@@ -27,10 +27,10 @@ public class Startup {
         messageReceiver.receive(Constants.Queues.OPEN_ORDERS, (Order order) -> {
             try {
                 if (strategy.needsApproval(order)) {
+                    messageSender.send(Constants.Queues.NEED_APPROVAL, order);
+                } else {
                     order.setApprovedBy("Buchhaltung");
                     messageSender.send(Constants.Queues.APPROVED_ORDERS, order);
-                } else {
-                    messageSender.send(Constants.Queues.NEED_APPROVAL, order);
                 }
             } catch (TimeoutException | IOException e) {
                 StaticLogger.logException(e);
