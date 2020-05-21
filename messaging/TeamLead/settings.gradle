@@ -1,0 +1,4 @@
+rootProject.name = 'TeamLead'
+
+include ':Common'
+project(':Common').projectDir = new File('../Common')
