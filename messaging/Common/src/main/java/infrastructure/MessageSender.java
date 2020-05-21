@@ -32,7 +32,7 @@ public class MessageSender {
             channel.queueDeclare(queueName, false, false, false, null);
             String json = gson.toJson(message);
             channel.basicPublish("", queueName, null, json.getBytes(StandardCharsets.UTF_8));
-            StaticLogger.logger.info(" [x] Sent '" + json + "'");
+            StaticLogger.logger.info(" [x] Sent to " + queueName + " '" + json + "'");
         }
     }
 }

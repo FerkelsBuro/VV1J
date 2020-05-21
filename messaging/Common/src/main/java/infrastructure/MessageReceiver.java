@@ -1,18 +1,13 @@
 package infrastructure;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
 import core.loggers.StaticLogger;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
@@ -37,12 +32,12 @@ public class MessageReceiver {
         Channel channel = connection.createChannel();
 
         channel.queueDeclare(queueName, false, false, false, null);
-        StaticLogger.logger.info(" [*] Waiting for messages. To exit press CTRL+C");
+        StaticLogger.logger.info(" [*] Waiting for messages. To exit press CTRL+C\n");
 
         DeliverCallback deliverCallback = (consumerTag, delivery) -> {
             String message = new String(delivery.getBody(), StandardCharsets.UTF_8);
             T order = gson.fromJson(message, (Type) clazz);
-            StaticLogger.logger.info(" [x] Received '" + message + "'");
+            StaticLogger.logger.info(" [x] Received from " + queueName + " '" + message + "'");
             onMessageReceive.accept(order);
         };
         channel.basicConsume(queueName, true, deliverCallback, consumerTag -> {

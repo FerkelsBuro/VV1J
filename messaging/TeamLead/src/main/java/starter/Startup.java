@@ -21,11 +21,13 @@ public class Startup {
 
         messageReceiver.receive(Constants.Queues.NEED_APPROVAL, (Order order) -> {
             try {
-                if (strategy.needsApproval(order)) {
-                    order.setApprovedBy("Buchhaltung");
+                if (strategy.getsApproval(order)) {
+                    order.setApprovedBy("Teamleitung");
                     messageSender.send(Constants.Queues.APPROVED_ORDERS, order);
+                    StaticLogger.logger.info("Teamlead was feeling happy and approved the order\n");
                 } else {
                     messageSender.send(Constants.Queues.DECLINED_ORDER, order);
+                    StaticLogger.logger.info("Teamlead wasn't feeling happy and didn't approve the order\n");
                 }
             } catch (TimeoutException | IOException e) {
                 StaticLogger.logException(e);
