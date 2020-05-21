@@ -8,7 +8,7 @@ public class Order {
     private int amount;
     private Date createDate;
     private Customer customer;
-    private Object approvedBy;
+    private String approvedBy;
 
     public Order(int amount, Customer customer) {
         orderId = UUID.randomUUID();
@@ -19,6 +19,10 @@ public class Order {
 
     public int getAmount() {
         return amount;
+    }
+
+    public void setApprovedBy(String approvedBy) {
+        this.approvedBy = approvedBy;
     }
 }
 

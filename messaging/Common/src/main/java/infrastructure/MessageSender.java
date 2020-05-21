@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+import core.loggers.StaticLogger;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -24,7 +25,7 @@ public class MessageSender {
             channel.queueDeclare(queueName, false, false, false, null);
             String json = gson.toJson(message);
             channel.basicPublish("", queueName, null, json.getBytes(StandardCharsets.UTF_8));
-            System.out.println(" [x] Sent '" + json + "'");
+            StaticLogger.logger.info(" [x] Sent '" + json + "'");
         }
     }
 }
