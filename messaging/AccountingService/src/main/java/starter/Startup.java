@@ -1,10 +1,12 @@
 package starter;
 
+import com.google.gson.Gson;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
 import core.OrderApprovalStrategy;
+import domain.models.Order;
 
 import java.nio.charset.StandardCharsets;
 
@@ -12,6 +14,7 @@ public class Startup {
 
     private final static String QUEUE_NAME = "OpenOrders";
     private static final OrderApprovalStrategy strategy = new OrderApprovalStrategy();
+    private final static Gson gson = new Gson();
 
     public static void main(String[] argv) throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
@@ -24,7 +27,7 @@ public class Startup {
 
         DeliverCallback deliverCallback = (consumerTag, delivery) -> {
             String message = new String(delivery.getBody(), StandardCharsets.UTF_8);
-            //strategy.needsApproval()
+            Order order = gson.fromJson(message, Order.class);
             System.out.println(" [x] Received '" + message + "'");
         };
         channel.basicConsume(QUEUE_NAME, true, deliverCallback, consumerTag -> { });

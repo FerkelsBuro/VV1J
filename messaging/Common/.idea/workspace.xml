@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cb2d7248-2eec-4b9c-ba59-cdc79038a106" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CustomerService/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../CustomerService/settings.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CustomerService/src/main/java/domain/models/Customer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CustomerService/src/main/java/domain/models/Order.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccountingService/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../AccountingService/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AccountingService/src/main/java/starter/Startup.java" beforeDir="false" afterPath="$PROJECT_DIR$/../AccountingService/src/main/java/starter/Startup.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -34,11 +32,57 @@
     <option name="width" value="974" />
     <option name="height" value="1087" />
   </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Common" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Common" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="Common" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Common" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Common" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Common" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="Common" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Common" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Common" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Common" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../CustomerService" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
@@ -64,23 +108,22 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1590061453028</updated>
-      <workItem from="1590061454403" duration="250000" />
+      <workItem from="1590061454403" duration="774000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="250000" />
+    <option name="totallyTimeSpent" value="774000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Designer" />
       <window_info id="Image Layers" />
       <window_info id="Capture Tool" />
       <window_info id="UI Designer" />
       <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Build" />
       <window_info anchor="bottom" id="Terminal" />
