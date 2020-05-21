@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cb2d7248-2eec-4b9c-ba59-cdc79038a106" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../AccountingService/src/main/java/starter/Startup.java" beforeDir="false" afterPath="$PROJECT_DIR$/../AccountingService/src/main/java/starter/Startup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../CustomerService/src/main/java/starter/Startup.java" beforeDir="false" afterPath="$PROJECT_DIR$/../CustomerService/src/main/java/starter/Startup.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/core/Constants.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -37,7 +36,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/infrastructure/MessageReceiver.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="391">
@@ -45,6 +44,15 @@
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/core/Constants.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" column="35" selection-start-line="4" selection-start-column="35" selection-end-line="4" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -78,6 +86,7 @@
         <option value="$PROJECT_DIR$/src/main/java/infrastructure/___.java" />
         <option value="$PROJECT_DIR$/src/main/java/infrastructure/MessageSender.java" />
         <option value="$PROJECT_DIR$/src/main/java/infrastructure/MessageReceiver.java" />
+        <option value="$PROJECT_DIR$/src/main/java/core/Constants.java" />
       </list>
     </option>
   </component>
@@ -117,6 +126,14 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Common" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Common" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Common" type="b2602c69:ProjectViewProjectNode" />
@@ -181,7 +198,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3585000" />
+    <option name="totallyTimeSpent" value="3846000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
@@ -251,6 +268,13 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/core/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="35" selection-start-line="4" selection-start-column="35" selection-end-line="4" selection-end-column="35" />
         </state>
       </provider>
     </entry>
