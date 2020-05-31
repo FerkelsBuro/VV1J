@@ -17,11 +17,11 @@ public class AccountingService extends AbstractService {
 
     public void handleMessage(Order order) throws IOException, TimeoutException {
         if (strategy.needsApproval(order)) {
-            messageSender.send(Constants.Queues.NEED_APPROVAL, order);
+            messageSender.send(receiveChannel, order);
             StaticLogger.logger.info("order is too expensive and needs approval of 'Teamleitung'\n");
         } else {
             order.setApprovedBy("Buchhaltung");
-            messageSender.send(Constants.Queues.APPROVED_ORDERS, order);
+            messageSender.send(receiveChannel, order);
             StaticLogger.logger.info("order was approved by 'Buchhaltung'\n");
         }
     }
