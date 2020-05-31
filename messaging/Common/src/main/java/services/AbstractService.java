@@ -8,8 +8,9 @@ import infrastructure.MessageSender;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
+import java.util.function.Consumer;
 
-public abstract class AbstractService {
+public abstract class AbstractService implements Runnable {
     protected final String receiveChannel;
     protected final String sendChannel;
     protected MessageReceiver messageReceiver;
@@ -25,19 +26,13 @@ public abstract class AbstractService {
         this.sendChannel = sendChannel;
     }
 
-    public void watchChannel() throws IOException, TimeoutException {
-        messageReceiver.receive(receiveChannel, order -> {
-            try {
-                handleMessage(order);
-            } catch (IOException | TimeoutException e) {
-                StaticLogger.logException(e);
-            }
-        }, Order.class);
+    protected void watchChannel(Consumer<Order> callBack) throws IOException, TimeoutException {
+        messageReceiver.receive(receiveChannel, callBack, Order.class);
     }
 
-    public <T> void send(T message) throws IOException, TimeoutException {
+    protected <T> void send(T message) throws IOException, TimeoutException {
         messageSender.send(sendChannel, message);
     }
 
-    abstract public void handleMessage(Order order) throws IOException, TimeoutException;
+//    abstract public void handleMessage(Order order) throws IOException, TimeoutException;
 }

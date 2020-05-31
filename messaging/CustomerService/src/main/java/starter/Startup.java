@@ -14,6 +14,6 @@ public class Startup {
 
     public static void main(String[] argv) throws IOException, TimeoutException {
         CustomerService customerService = new CustomerService(new MessageReceiver(gson), new MessageSender(gson));
-        customerService.send(RandomOrderGenerator.createRandomOrder());
+        customerService.sendOrder(RandomOrderGenerator.createRandomOrder());
     }
 }
