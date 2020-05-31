@@ -12,7 +12,7 @@ import java.util.concurrent.TimeoutException;
 
 public class AccountingService extends AbstractService {
     public AccountingService(MessageReceiver messageReceiver, MessageSender messageSender, IOrderApprovalStrategy strategy) {
-        super(messageReceiver, messageSender, strategy, Constants.Queues.OPEN_ORDERS);
+        super(messageReceiver, messageSender, strategy, Constants.Queues.OPEN_ORDERS, Constants.Queues.NEED_APPROVAL);
     }
 
     public void handleMessage(Order order) throws IOException, TimeoutException {

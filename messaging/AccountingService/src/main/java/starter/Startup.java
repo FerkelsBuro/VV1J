@@ -22,6 +22,6 @@ public class Startup {
         MessageSender messageSender = new MessageSender(gson);
         AccountingService accountingService = new AccountingService(messageReceiver, messageSender, strategy);
 
-        accountingService.watchOpenOrders();
+        accountingService.watchChannel();
     }
 }
