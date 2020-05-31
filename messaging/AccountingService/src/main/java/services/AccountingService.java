@@ -10,27 +10,15 @@ import infrastructure.MessageSender;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
-public class AccountingService {
-    private MessageReceiver messageReceiver;
-    private MessageSender messageSender;
+public class AccountingService extends AbstractService{
     private OrderApprovalStrategy strategy;
 
     public AccountingService(MessageReceiver messageReceiver, MessageSender messageSender, OrderApprovalStrategy strategy) {
-        this.messageReceiver = messageReceiver;
-        this.messageSender = messageSender;
+        super(messageReceiver, messageSender);
         this.strategy = strategy;
     }
 
-    public void watchOpenOrders() throws IOException, TimeoutException {
-        messageReceiver.receive(Constants.Queues.OPEN_ORDERS, (Order order) -> {
-            try {
-                orderResponse(order);
-            } catch (IOException | TimeoutException e) {
-                StaticLogger.logException(e);
-            }
-        }, Order.class);
-    }
-
+    @Override
     public void orderResponse(Order order) throws IOException, TimeoutException {
         if (strategy.needsApproval(order)) {
             messageSender.send(Constants.Queues.NEED_APPROVAL, order);
@@ -40,6 +28,11 @@ public class AccountingService {
             messageSender.send(Constants.Queues.APPROVED_ORDERS, order);
             StaticLogger.logger.info("order was approved by 'Buchhaltung'\n");
         }
+    }
+
+    @Override
+    public String getChannel() {
+        return Constants.Queues.OPEN_ORDERS;
     }
 }
 
