@@ -5,16 +5,12 @@ import core.Constants;
 import core.OrderApprovalStrategy;
 import domain.models.Customer;
 import domain.models.Order;
-import infrastructure.MessageReceiver;
 import infrastructure.MessageSender;
-import org.junit.Before;
 import org.junit.Test;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -57,7 +53,7 @@ public class AccountingServiceTest {
 
         Order order = new Order(100, new Customer("", "", "", ""));
 
-        accountingService.sendOrderResponse(order);
+        accountingService.handleMessage(order);
 
         verify(mockMessageSender).send(Constants.Queues.APPROVED_ORDERS, order);
     }
