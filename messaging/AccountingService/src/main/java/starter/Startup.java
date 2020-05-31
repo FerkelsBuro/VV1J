@@ -24,19 +24,6 @@ public class Startup {
         MessageReceiver messageReceiver = new MessageReceiver(gson);
         MessageSender messageSender = new MessageSender(gson);
 
-        messageReceiver.receive(Constants.Queues.OPEN_ORDERS, (Order order) -> {
-            try {
-                if (strategy.needsApproval(order)) {
-                    messageSender.send(Constants.Queues.NEED_APPROVAL, order);
-                    StaticLogger.logger.info("order is too expensive and needs approval of 'Teamleitung'\n");
-                } else {
-                    order.setApprovedBy("Buchhaltung");
-                    messageSender.send(Constants.Queues.APPROVED_ORDERS, order);
-                    StaticLogger.logger.info("order was approved by 'Buchhaltung'\n");
-                }
-            } catch (TimeoutException | IOException e) {
-                StaticLogger.logException(e);
-            }
-        }, Order.class);
+
     }
 }
