@@ -11,6 +11,7 @@ import core.loggers.StaticLogger;
 import domain.models.Order;
 import infrastructure.MessageReceiver;
 import infrastructure.MessageSender;
+import services.AccountingService;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -23,7 +24,9 @@ public class Startup {
     public static void main(String[] argv) throws Exception {
         MessageReceiver messageReceiver = new MessageReceiver(gson);
         MessageSender messageSender = new MessageSender(gson);
+        OrderApprovalStrategy strategy = new OrderApprovalStrategy();
 
-
+        AccountingService accountingService = new AccountingService(messageReceiver, messageSender, strategy);
+        accountingService.watchOpenOrders();
     }
 }
