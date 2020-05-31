@@ -21,34 +21,43 @@ import static org.mockito.Mockito.verify;
 public class AccountingServiceTest {
     private static final Gson gson = new Gson();
 
-    @Before
-    public void setup() {
-
-    }
+//    @Test
+//    public void watchOpenOrders() throws IOException, TimeoutException, InterruptedException {
+//        MessageSender messageSender = new MessageSender(gson);
+//        MessageReceiver messageReceiver = new MessageReceiver(gson);
+//        OrderApprovalStrategy strategy = new OrderApprovalStrategy();
+//        MessageSender mockMessageSender = mock(MessageSender.class);
+//
+//        AccountingService accountingService = new AccountingService(messageReceiver, mockMessageSender, strategy);
+//
+//        Order order = new Order(100, new Customer("", "", "", ""));
+//
+//        Thread runnable = new Thread(() -> {
+//            try {
+//                accountingService.watchOpenOrders();
+//            } catch (IOException | TimeoutException ignored) {
+//            }
+//        });
+//
+//        messageSender.send(Constants.Queues.OPEN_ORDERS, order);
+//
+//        runnable.run();
+//        Thread.sleep(100);
+//        runnable.interrupt();
+//
+//        verify(mockMessageSender).send(Constants.Queues.APPROVED_ORDERS, order);
+//    }
 
     @Test
-    public void watchOpenOrders() throws IOException, TimeoutException, InterruptedException {
-        MessageSender messageSender = new MessageSender(gson);
-        MessageReceiver messageReceiver = new MessageReceiver(gson);
+    public void sendOrderResponse() throws IOException, TimeoutException {
         OrderApprovalStrategy strategy = new OrderApprovalStrategy();
         MessageSender mockMessageSender = mock(MessageSender.class);
 
-        AccountingService accountingService = new AccountingService(messageReceiver, mockMessageSender, strategy);
+        AccountingService accountingService = new AccountingService(null, mockMessageSender, strategy);
 
         Order order = new Order(100, new Customer("", "", "", ""));
 
-        Thread runnable = new Thread(() -> {
-            try {
-                accountingService.watchOpenOrders();
-            } catch (IOException | TimeoutException ignored) {
-            }
-        });
-
-        messageSender.send(Constants.Queues.OPEN_ORDERS, order);
-
-        runnable.run();
-        Thread.sleep(100);
-        runnable.interrupt();
+        accountingService.sendOrderResponse(order);
 
         verify(mockMessageSender).send(Constants.Queues.APPROVED_ORDERS, order);
     }
