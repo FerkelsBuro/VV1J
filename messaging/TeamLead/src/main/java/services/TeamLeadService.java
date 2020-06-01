@@ -10,7 +10,7 @@ import infrastructure.MessageSender;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
-public class TeamLeadService extends AbstractService {
+public class TeamLeadService extends AbstractService implements Runnable {
     private IOrderApprovalStrategy strategy;
 
     public TeamLeadService(MessageReceiver messageReceiver, MessageSender messageSender, IOrderApprovalStrategy strategy) {
@@ -33,6 +33,15 @@ public class TeamLeadService extends AbstractService {
     @Override
     public String getChannel() {
         return Constants.Queues.NEED_APPROVAL;
+    }
+
+    @Override
+    public void run() {
+        try {
+            watchOpenOrders();
+        } catch (IOException | TimeoutException e) {
+            StaticLogger.logException(e);
+        }
     }
 }
 
