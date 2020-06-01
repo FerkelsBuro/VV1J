@@ -1,7 +1,7 @@
 package services;
 
 import core.Constants;
-import core.OrderApprovalStrategy;
+import core.IOrderApprovalStrategy;
 import core.loggers.StaticLogger;
 import domain.models.Order;
 import infrastructure.MessageReceiver;
@@ -10,10 +10,10 @@ import infrastructure.MessageSender;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
-public class TeamLeadService extends AbstractService{
-    private OrderApprovalStrategy strategy;
+public class TeamLeadService extends AbstractService {
+    private IOrderApprovalStrategy strategy;
 
-    public TeamLeadService(MessageReceiver messageReceiver, MessageSender messageSender, OrderApprovalStrategy strategy) {
+    public TeamLeadService(MessageReceiver messageReceiver, MessageSender messageSender, IOrderApprovalStrategy strategy) {
         super(messageReceiver, messageSender);
         this.strategy = strategy;
     }

@@ -7,7 +7,6 @@ import infrastructure.MessageSender;
 import services.TeamLeadService;
 
 public class Startup {
-    private static final OrderApprovalStrategy strategy = new OrderApprovalStrategy();
     private final static Gson gson = new Gson();
 
     public static void main(String[] argv) throws Exception {
