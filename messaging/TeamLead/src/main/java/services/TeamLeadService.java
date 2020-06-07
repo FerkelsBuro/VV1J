@@ -31,7 +31,12 @@ public class TeamLeadService extends AbstractService implements Runnable {
     }
 
     @Override
-    public String getChannel() {
+    public String getExchange() {
+        return Constants.Exchanges.NEED_APPROVAL;
+    }
+
+    @Override
+    public String getQueue() {
         return Constants.Queues.NEED_APPROVAL;
     }
 

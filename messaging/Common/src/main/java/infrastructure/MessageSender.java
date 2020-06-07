@@ -29,7 +29,6 @@ public class MessageSender {
     public <T> void send(String exchangeName, T message) throws IOException, TimeoutException {
         try (Connection connection = factory.newConnection();
              Channel channel = connection.createChannel()) {
-            //channel.queueDeclare(exchangeName, false, false, false, null);
             channel.exchangeDeclare(exchangeName, "fanout");
             String json = gson.toJson(message);
             channel.basicPublish(exchangeName, "", null, json.getBytes(StandardCharsets.UTF_8));

@@ -18,7 +18,7 @@ public class Startup {
         MessageSender messageSender = new MessageSender(gson);
 
         while(!Thread.interrupted()) {
-            messageSender.send(Constants.Queues.OPEN_ORDERS, RandomOrderGenerator.createRandomOrder());
+            messageSender.send(Constants.Exchanges.OPEN_ORDERS, RandomOrderGenerator.createRandomOrder());
             Thread.sleep(interval);
         }
     }

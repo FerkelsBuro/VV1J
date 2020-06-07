@@ -21,17 +21,22 @@ public class AccountingService extends AbstractService{
     @Override
     public void orderResponse(Order order) throws IOException, TimeoutException {
         if (strategy.needsApproval(order)) {
-            messageSender.send(Constants.Queues.NEED_APPROVAL, order);
+            messageSender.send(Constants.Exchanges.NEED_APPROVAL, order);
             StaticLogger.logger.info("order is too expensive and needs approval of 'Teamleitung'\n");
         } else {
             order.setApprovedBy("Buchhaltung");
-            messageSender.send(Constants.Queues.APPROVED_ORDERS, order);
+            messageSender.send(Constants.Exchanges.APPROVED_ORDERS, order);
             StaticLogger.logger.info("order was approved by 'Buchhaltung'\n");
         }
     }
 
     @Override
-    public String getChannel() {
+    public String getExchange() {
+        return Constants.Exchanges.OPEN_ORDERS;
+    }
+
+    @Override
+    public String getQueue() {
         return Constants.Queues.OPEN_ORDERS;
     }
 }

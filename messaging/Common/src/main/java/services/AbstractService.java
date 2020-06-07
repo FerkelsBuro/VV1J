@@ -18,7 +18,7 @@ public abstract class AbstractService {
     }
 
     public void watchOpenOrders() throws IOException, TimeoutException {
-        messageReceiver.receive(getChannel(), (Order order) -> {
+        messageReceiver.receive(getExchange(), getQueue(), (Order order) -> {
             try {
                 orderResponse(order);
             } catch (IOException | TimeoutException e) {
@@ -29,5 +29,6 @@ public abstract class AbstractService {
 
     public abstract void orderResponse(Order order) throws IOException, TimeoutException;
 
-    public abstract String getChannel();
+    public abstract String getExchange();
+    public abstract String getQueue();
 }
