@@ -35,7 +35,7 @@ public class AccountingServiceTest {
 
         accountingService.orderResponse(order);
 
-        verify(mockMessageSender).send(Constants.Queues.APPROVED_ORDERS, order);
+        verify(mockMessageSender).send(Constants.Exchanges.APPROVED_ORDERS, order);
     }
 
     @Test
@@ -44,6 +44,6 @@ public class AccountingServiceTest {
 
         accountingService.orderResponse(order);
 
-        verify(mockMessageSender).send(Constants.Queues.NEED_APPROVAL, order);
+        verify(mockMessageSender).send(Constants.Exchanges.NEED_APPROVAL, order);
     }
 }

@@ -42,7 +42,7 @@ public class TeamLeadServiceTest {
 
         teamLeadService.orderResponse(order);
 
-        verify(mockMessageSender).send(Constants.Queues.APPROVED_ORDERS, order);
+        verify(mockMessageSender).send(Constants.Exchanges.APPROVED_ORDERS, order);
     }
 
     @Test
@@ -53,7 +53,7 @@ public class TeamLeadServiceTest {
 
         teamLeadService.orderResponse(order);
 
-        verify(mockMessageSender).send(Constants.Queues.DECLINED_ORDER, order);
+        verify(mockMessageSender).send(Constants.Exchanges.DECLINED_ORDER, order);
     }
 
 //    @Test

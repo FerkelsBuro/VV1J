@@ -10,7 +10,7 @@ import infrastructure.MessageSender;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
-public class TeamLeadService extends AbstractService implements Runnable {
+public class TeamLeadService extends AbstractService {
     private IOrderApprovalStrategy strategy;
 
     public TeamLeadService(MessageReceiver messageReceiver, MessageSender messageSender, IOrderApprovalStrategy strategy) {
@@ -22,10 +22,10 @@ public class TeamLeadService extends AbstractService implements Runnable {
     public void orderResponse(Order order) throws IOException, TimeoutException {
         if (strategy.needsApproval(order)) {
             order.setApprovedBy("Teamleitung");
-            messageSender.send(Constants.Queues.APPROVED_ORDERS, order);
+            messageSender.send(Constants.Exchanges.APPROVED_ORDERS, order);
             StaticLogger.logger.info("Teamlead was feeling happy and approved the order\n");
         } else {
-            messageSender.send(Constants.Queues.DECLINED_ORDER, order);
+            messageSender.send(Constants.Exchanges.DECLINED_ORDER, order);
             StaticLogger.logger.info("Teamlead wasn't feeling happy and didn't approve the order\n");
         }
     }
@@ -40,13 +40,13 @@ public class TeamLeadService extends AbstractService implements Runnable {
         return Constants.Queues.NEED_APPROVAL;
     }
 
-    @Override
-    public void run() {
-        try {
-            watchOpenOrders();
-        } catch (IOException | TimeoutException e) {
-            StaticLogger.logException(e);
-        }
-    }
+//    @Override
+//    public void run() {
+//        try {
+//            watchOpenOrders();
+//        } catch (IOException | TimeoutException e) {
+//            StaticLogger.logException(e);
+//        }
+//    }
 }
 
