@@ -26,13 +26,14 @@ public class MessageSender {
         JsonConfigReader.readConfigJson(configPath, this.factory);
     }
 
-    public <T> void send(String queueName, T message) throws IOException, TimeoutException {
+    public <T> void send(String exchangeName, T message) throws IOException, TimeoutException {
         try (Connection connection = factory.newConnection();
              Channel channel = connection.createChannel()) {
-            channel.queueDeclare(queueName, false, false, false, null);
+            //channel.queueDeclare(exchangeName, false, false, false, null);
+            channel.exchangeDeclare(exchangeName, "fanout");
             String json = gson.toJson(message);
-            channel.basicPublish("", queueName, null, json.getBytes(StandardCharsets.UTF_8));
-            StaticLogger.logger.info(" [x] Sent to " + queueName + " '" + json + "'");
+            channel.basicPublish(exchangeName, "", null, json.getBytes(StandardCharsets.UTF_8));
+            StaticLogger.logger.info(" [x] Sent to " + exchangeName + " '" + json + "'");
         }
     }
 }

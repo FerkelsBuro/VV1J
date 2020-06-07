@@ -27,17 +27,21 @@ public class MessageReceiver {
         JsonConfigReader.readConfigJson(configPath, this.factory);
     }
 
-    public <T> void receive(String queueName, Consumer<T> onMessageReceive, Class<T> clazz) throws IOException, TimeoutException {
+    public <T> void receive(String exchangeName, Consumer<T> onMessageReceive, Class<T> clazz) throws IOException, TimeoutException {
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
 
-        channel.queueDeclare(queueName, false, false, false, null);
+        channel.exchangeDeclare(exchangeName, "fanout");
+        String queueName = channel.queueDeclare().getQueue();
+        channel.queueBind(queueName, exchangeName, "");
+
+        //channel.queueDeclare(exchangeName, false, false, false, null);
         StaticLogger.logger.info(" [*] Waiting for messages. To exit press CTRL+C\n");
 
         DeliverCallback deliverCallback = (consumerTag, delivery) -> {
             String message = new String(delivery.getBody(), StandardCharsets.UTF_8);
             T order = gson.fromJson(message, (Type) clazz);
-            StaticLogger.logger.info(" [x] Received from " + queueName + " '" + message + "'");
+            StaticLogger.logger.info(" [x] Received from " + exchangeName + " '" + message + "'");
             onMessageReceive.accept(order);
         };
         channel.basicConsume(queueName, true, deliverCallback, consumerTag -> {
