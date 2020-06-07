@@ -1,0 +1,4 @@
+{
+	"MessageBusURL": "localhost_test",
+	"Port": 15672
+}
