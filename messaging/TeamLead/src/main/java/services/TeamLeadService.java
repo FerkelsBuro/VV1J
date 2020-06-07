@@ -39,14 +39,5 @@ public class TeamLeadService extends AbstractService {
     public String getQueue() {
         return Constants.Queues.NEED_APPROVAL;
     }
-
-//    @Override
-//    public void run() {
-//        try {
-//            watchOpenOrders();
-//        } catch (IOException | TimeoutException e) {
-//            StaticLogger.logException(e);
-//        }
-//    }
 }
 
