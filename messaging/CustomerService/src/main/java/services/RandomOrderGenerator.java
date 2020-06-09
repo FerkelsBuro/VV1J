@@ -10,7 +10,7 @@ public class RandomOrderGenerator {
     private static final int MAXIMUM_AMOUNT = 2_000;
 
     public static Order createRandomOrder() {
-        Customer customer = new Customer("Company", "Michael", "Bacher", "Michael.Bacher@Grunzenham.com");
+        Customer customer = RandomCustomerGenerator.createRandomCustomer();
         return new Order(ThreadLocalRandom.current().nextInt(MINIMUM_AMOUNT, MAXIMUM_AMOUNT), customer);
     }
 
