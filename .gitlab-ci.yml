@@ -16,36 +16,37 @@ image: gradle:6.3.0-jdk14
 #   - cd erstesProjektVV
 #   - gradle test
 
-build:
-  stage: build
-  script:
-    - cd messaging/CustomerService
-    - gradle assemble
+# build:
+#   stage: build
+#   script:
+#     - cd messaging/CustomerService
+#     - gradle assemble
 
-    - cd ../AccountingService
-    - gradle assemble
+#     - cd ../AccountingService
+#     - gradle assemble
 
-    - cd ../TeamLead
-    - gradle assemble
+#     - cd ../TeamLead
+#     - gradle assemble
 
-    - cd ../Common
-    - gradle assemble
+#     - cd ../Common
+#     - gradle assemble
 
 test:
   stage: test
   script:
-    - cd messaging/CustomerService
-    - gradle test
+    # - cd messaging/CustomerService
+    # - gradle test
 
-    - cd ../AccountingService
+    - cd messaging/AccountingService
     - gradle test
+    - ls build/test-results/test
 
-    - cd ../TeamLead
-    - gradle test
-
-    - cd ../Common
-    - gradle test
+    # - cd ../TeamLead
+    # - gradle test
+    # - cd ../Common
+    # - gradle test
+    # - cd ..
 
   artifacts:
     reports:
-      junit: messaging/CustomerService/build/test-results/test/**/TEST-*.xml
+      junit: messaging/AccountingService/build/test-results/test/TEST-*.xml
