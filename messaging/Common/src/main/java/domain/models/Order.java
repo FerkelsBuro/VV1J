@@ -38,5 +38,9 @@ public class Order {
     public int hashCode() {
         return Objects.hash(orderId);
     }
+
+    public UUID getOrderId() {
+        return orderId;
+    }
 }
 
