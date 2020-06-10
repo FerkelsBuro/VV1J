@@ -45,3 +45,7 @@ test:
 
     - cd ../Common
     - gradle test
+
+  artifacts:
+    reports:
+      junit: messaging/CustomerService/build/test-results/test/**/TEST-*.xml
