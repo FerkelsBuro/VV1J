@@ -22,8 +22,20 @@ build:
     - cd messaging/CustomerService
     - gradle assemble
 
+    - cd ../AccountingService
+    - gradle assemble
+
+    - cd ../TeamLead
+    - gradle assemble
+
 test:
   stage: test
   script:
     - cd messaging/CustomerService
+    - gradle test
+
+    - cd ../AccountingService
+    - gradle test
+
+    - cd ../TeamLead
     - gradle test
