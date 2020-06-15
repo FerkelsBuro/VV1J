@@ -22,10 +22,6 @@ public class Order {
         return amount;
     }
 
-    public void setApprovedBy(String approvedBy) {
-        this.approvedBy = approvedBy;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -41,6 +37,22 @@ public class Order {
 
     public UUID getOrderId() {
         return orderId;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public String getApprovedBy() {
+        return approvedBy;
+    }
+
+    public void setApprovedBy(String approvedBy) {
+        this.approvedBy = approvedBy;
     }
 }
 

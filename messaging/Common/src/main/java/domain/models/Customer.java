@@ -16,4 +16,24 @@ public class Customer {
         this.lastName = lastName;
         this.email = email;
     }
+
+    public UUID getCustomerId() {
+        return customerId;
+    }
+
+    public String getSalutation() {
+        return salutation;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
 }
