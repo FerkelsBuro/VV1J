@@ -6,7 +6,6 @@ import domain.models.Customer;
 import domain.models.Order;
 import infrastructure.MessageSender;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.IOException;

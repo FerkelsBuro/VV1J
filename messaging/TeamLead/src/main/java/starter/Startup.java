@@ -7,7 +7,7 @@ import infrastructure.MessageSender;
 import services.TeamLeadService;
 
 public class Startup {
-    private final static Gson gson = new Gson();
+    private static final Gson gson = new Gson();
 
     public static void main(String[] argv) throws Exception {
         MessageReceiver messageReceiver = new MessageReceiver(gson);

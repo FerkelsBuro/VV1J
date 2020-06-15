@@ -9,6 +9,9 @@ import domain.models.Customer;
 public class RandomCustomerGenerator {
     private static Faker faker = new Faker();
 
+    private RandomCustomerGenerator() {
+    }
+
     public static Customer createRandomCustomer() {
         String salutation = faker.name().prefix();
         String firstName = faker.name().firstName();
