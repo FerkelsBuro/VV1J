@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'jacoco'
+    id "org.sonarqube"
 }
 
 group 'VV2'
@@ -9,6 +11,26 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+}
+
+jacoco {
+    toolVersion = "0.8.5"
+    reportsDir = file("$buildDir/customJacocoReportDir")
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination file("${buildDir}/reports/jacoco/test")
+    }
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "Alexander.Wierer"
+        property "sonar.host.url", "http://localhost:9000"
+    }
 }
 
 dependencies {
