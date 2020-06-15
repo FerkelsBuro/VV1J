@@ -6,11 +6,9 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import core.loggers.StaticLogger;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Paths;
 import java.util.concurrent.TimeoutException;
 
 /**
@@ -33,7 +31,7 @@ public class MessageSender {
      * sends a message to an Exchange (type = "fanout")
      *
      * @param exchangeName exchangeName
-     * @param message message
+     * @param message      message
      * @param <T>
      * @throws IOException
      * @throws TimeoutException
@@ -44,7 +42,7 @@ public class MessageSender {
             channel.exchangeDeclare(exchangeName, "fanout");
             String json = gson.toJson(message);
             channel.basicPublish(exchangeName, "", null, json.getBytes(StandardCharsets.UTF_8));
-            StaticLogger.logger.info(" [x] Sent to " + exchangeName + " '" + json + "'");
+            StaticLogger.logger.info(() -> " [x] Sent to " + exchangeName + " '" + json + "'");
         }
     }
 }

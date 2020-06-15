@@ -54,7 +54,7 @@ public class MessageReceiver {
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
                 String message = new String(delivery.getBody(), StandardCharsets.UTF_8);
                 T order = gson.fromJson(message, (Type) clazz);
-                StaticLogger.logger.info(" [x] Received from " + exchangeName + " '" + message + "'");
+                StaticLogger.logger.info(() -> " [x] Received from " + exchangeName + " '" + message + "'");
                 onMessageReceive.accept(order);
             };
             channel.basicConsume(queueName, true, deliverCallback, consumerTag -> {
