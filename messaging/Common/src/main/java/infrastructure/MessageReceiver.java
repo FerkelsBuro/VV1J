@@ -33,31 +33,32 @@ public class MessageReceiver {
     /**
      * receives messages from a queue of an exchange and calls onMessageReceive if a message is received
      *
-     * @param exchangeName exchangeName
-     * @param queueName queueName
+     * @param exchangeName     exchangeName
+     * @param queueName        queueName
      * @param onMessageReceive Consumer that decides what happens when a message is received
-     * @param clazz class of the message
+     * @param clazz            class of the message
      * @param <T>
      * @throws IOException
      * @throws TimeoutException
      */
     public <T> void receive(String exchangeName, String queueName, Consumer<T> onMessageReceive, Class<T> clazz) throws IOException, TimeoutException {
-        Connection connection = factory.newConnection();
-        Channel channel = connection.createChannel();
+        try (Connection connection = factory.newConnection();
+             Channel channel = connection.createChannel()) {
 
-        channel.exchangeDeclare(exchangeName, "fanout");
-        channel.queueDeclare(queueName, true, false, false, null);
-        channel.queueBind(queueName, exchangeName, "");
+            channel.exchangeDeclare(exchangeName, "fanout");
+            channel.queueDeclare(queueName, true, false, false, null);
+            channel.queueBind(queueName, exchangeName, "");
 
-        StaticLogger.logger.info(" [*] Waiting for messages. To exit press CTRL+C\n");
+            StaticLogger.logger.info(" [*] Waiting for messages. To exit press CTRL+C\n");
 
-        DeliverCallback deliverCallback = (consumerTag, delivery) -> {
-            String message = new String(delivery.getBody(), StandardCharsets.UTF_8);
-            T order = gson.fromJson(message, (Type) clazz);
-            StaticLogger.logger.info(" [x] Received from " + exchangeName + " '" + message + "'");
-            onMessageReceive.accept(order);
-        };
-        channel.basicConsume(queueName, true, deliverCallback, consumerTag -> {
-        });
+            DeliverCallback deliverCallback = (consumerTag, delivery) -> {
+                String message = new String(delivery.getBody(), StandardCharsets.UTF_8);
+                T order = gson.fromJson(message, (Type) clazz);
+                StaticLogger.logger.info(" [x] Received from " + exchangeName + " '" + message + "'");
+                onMessageReceive.accept(order);
+            };
+            channel.basicConsume(queueName, true, deliverCallback, consumerTag -> {
+            });
+        }
     }
 }
