@@ -2,6 +2,9 @@ package domain.models;
 
 import java.util.UUID;
 
+/**
+ * Class for a Customer with UUID, salutation, firstName, LastName and an email-address
+ */
 public class Customer {
     private UUID customerId;
     private String salutation;

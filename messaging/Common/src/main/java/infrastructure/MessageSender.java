@@ -13,6 +13,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.concurrent.TimeoutException;
 
+/**
+ * MessageSender allows to send messages to an Exchange
+ */
 public class MessageSender {
     private final ConnectionFactory factory = new ConnectionFactory();
     private final Gson gson;
@@ -26,6 +29,15 @@ public class MessageSender {
         JsonConfigReader.readConfigJson(configPath, this.factory);
     }
 
+    /**
+     * sends a message to an Exchange (type = "fanout")
+     *
+     * @param exchangeName exchangeName
+     * @param message message
+     * @param <T>
+     * @throws IOException
+     * @throws TimeoutException
+     */
     public <T> void send(String exchangeName, T message) throws IOException, TimeoutException {
         try (Connection connection = factory.newConnection();
              Channel channel = connection.createChannel()) {

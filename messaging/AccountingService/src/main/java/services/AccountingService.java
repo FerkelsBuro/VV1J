@@ -10,6 +10,9 @@ import infrastructure.MessageSender;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
+/**
+ * The AccountingService receives message from "OpenOrders" and then sends it to "NeedApproval" or "ApprovedOrders"
+ */
 public class AccountingService extends AbstractService{
     private OrderApprovalStrategy strategy;
 

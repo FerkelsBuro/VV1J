@@ -1,5 +1,8 @@
 package core;
 
+/**
+ * Class where public constants are stored
+ */
 public class Constants {
     public static class Queues {
         public static final String OPEN_ORDERS = "OpenOrdersQueue";

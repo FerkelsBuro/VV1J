@@ -5,6 +5,9 @@ import domain.models.Order;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * This class can generate random Orders (with random Customers)
+ */
 public class RandomOrderGenerator {
     private static final int MINIMUM_AMOUNT = 1;
     private static final int MAXIMUM_AMOUNT = 2_000;

@@ -14,6 +14,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
 
+/**
+ * The MessageReceiver can receive messages from an exchange
+ */
 public class MessageReceiver {
     private final ConnectionFactory factory = new ConnectionFactory();
     private final Gson gson;
@@ -27,6 +30,17 @@ public class MessageReceiver {
         JsonConfigReader.readConfigJson(configPath, this.factory);
     }
 
+    /**
+     * receives messages from a queue of an exchange and calls onMessageReceive if a message is received
+     *
+     * @param exchangeName exchangeName
+     * @param queueName queueName
+     * @param onMessageReceive Consumer that decides what happens when a message is received
+     * @param clazz class of the message
+     * @param <T>
+     * @throws IOException
+     * @throws TimeoutException
+     */
     public <T> void receive(String exchangeName, String queueName, Consumer<T> onMessageReceive, Class<T> clazz) throws IOException, TimeoutException {
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();

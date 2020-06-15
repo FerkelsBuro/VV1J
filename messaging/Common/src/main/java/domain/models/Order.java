@@ -4,6 +4,9 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
+/**
+ * Order with an UUID
+ */
 public class Order {
     private UUID orderId;
     private int amount;

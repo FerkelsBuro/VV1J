@@ -10,6 +10,9 @@ import infrastructure.MessageSender;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
+/**
+ * The TeamLeadService receives message from "NeedApproval" and then sends it to "ApprovedOrders" or "DeclinedOrders"
+ */
 public class TeamLeadService extends AbstractService {
     private IOrderApprovalStrategy strategy;
 

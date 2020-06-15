@@ -3,6 +3,9 @@ package services;
 import com.github.javafaker.Faker;
 import domain.models.Customer;
 
+/**
+ * Allows to generate random Customers
+ */
 public class RandomCustomerGenerator {
     private static Faker faker = new Faker();
 

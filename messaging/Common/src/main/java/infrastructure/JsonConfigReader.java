@@ -10,6 +10,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.nio.file.Paths;
 
+/**
+ * Class that allows to read a ConfigJson
+ */
 public class JsonConfigReader {
     public static final String DEFAULT_CONFIG_PATH = Paths.get(System.getProperty("user.dir"))
             + File.separator + "config.json";
