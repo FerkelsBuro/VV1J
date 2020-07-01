@@ -1,9 +1,7 @@
 package th.vv3.models;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.UUID;
 
 /**
@@ -17,6 +15,7 @@ public class Customer {
     private String salutation;
     private String firstName;
     private String lastName;
+    @Column(unique = true)
     private String email;
 
     public Customer() {

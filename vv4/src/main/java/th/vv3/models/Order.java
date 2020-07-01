@@ -1,8 +1,6 @@
 package th.vv3.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
@@ -11,12 +9,14 @@ import java.util.UUID;
  * Order with an UUID
  */
 @Entity
+@Table(name = "`Order`")
 public class Order {
     @Id
     @GeneratedValue
     private UUID orderId;
     private int amount;
     private Date createDate;
+    @OneToOne(cascade = CascadeType.ALL)
     private Customer customer;
     private String approvedBy;
 
