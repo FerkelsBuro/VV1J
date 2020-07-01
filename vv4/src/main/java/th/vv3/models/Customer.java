@@ -2,6 +2,7 @@ package th.vv3.models;
 
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.UUID;
 
 /**
@@ -17,6 +18,7 @@ public class Customer {
     private String lastName;
     @Column(unique = true)
     private String email;
+
 
     public Customer() {
     }

@@ -16,9 +16,10 @@ public class Order {
     private UUID orderId;
     private int amount;
     private Date createDate;
-    @OneToOne(cascade = CascadeType.ALL)
-    private Customer customer;
     private String approvedBy;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Customer customer;
 
     public Order(int amount, Customer customer) {
         orderId = UUID.randomUUID();

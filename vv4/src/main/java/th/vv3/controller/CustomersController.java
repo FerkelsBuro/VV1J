@@ -6,6 +6,7 @@ import th.vv3.models.Customer;
 import th.vv3.repositories.CustomerRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/customers")
@@ -17,12 +18,24 @@ public class CustomersController {
     }
 
     @GetMapping
-    public List<Customer> Get() {
+    public List<Customer> get() {
         return this.customerRepository.findAll();
     }
 
     @PostMapping
-    public Customer Create(@RequestBody Customer customer) {
+    public Customer create(@RequestBody Customer customer) {
+        customerRepository.save(customer);
+        return customer;
+    }
+
+    @PutMapping
+    public Customer change(@RequestBody Customer customer) {
+        if (customer.getCustomerId() == null) {
+            return null;
+        }
+        if (customerRepository.findById(customer.getCustomerId()).equals(Optional.empty())) {
+            return null;
+        }
         customerRepository.save(customer);
         return customer;
     }
