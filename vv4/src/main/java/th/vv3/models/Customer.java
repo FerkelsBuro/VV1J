@@ -5,6 +5,7 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.UUID;
 
+
 /**
  * Class for a Customer with UUID, salutation, firstName, LastName and an email-address
  */
