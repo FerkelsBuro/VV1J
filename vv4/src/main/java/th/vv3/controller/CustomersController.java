@@ -1,5 +1,8 @@
 package th.vv3.controller;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -26,6 +29,14 @@ public class CustomersController {
     }
 
     @GetMapping("{customerId}")
+    @ApiOperation( // SWAGGER
+            value = "Searches customer with ID",
+            notes = "...",
+            response = Customer.class,
+            produces = "application/json")
+    @ApiResponses(value = { // SWAGGER
+            @ApiResponse(code = 200, message = "Customer found"),
+            @ApiResponse(code = 404, message = "Customer not found"),})
     public ResponseEntity getCustomerById(@PathVariable UUID customerId) {
         Optional<Customer> customer = customerRepository.findById(customerId);
         if (customer.isEmpty()) {
