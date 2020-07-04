@@ -1,16 +1,16 @@
 package th.vv3.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import th.vv3.models.Customer;
 import th.vv3.models.Payment;
 import th.vv3.repositories.CustomerRepository;
 import th.vv3.repositories.PaymentRepository;
+
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("api/v1/payments")
@@ -29,15 +29,24 @@ public class PaymentsController {
             return new ResponseEntity<>("id must not be set", HttpStatus.BAD_REQUEST);
         }
         if (customerRepository.findById(payment.getCustomerId()).isEmpty()) {
-            return  new ResponseEntity<>("Customer does not exist", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Customer does not exist", HttpStatus.NOT_FOUND);
         }
 
-        try {
-            paymentRepository.save(payment);
-        } catch (DataIntegrityViolationException e) {
-            //TODO
-            return new ResponseEntity<>("Id error", HttpStatus.BAD_REQUEST);
-        }
+        paymentRepository.save(payment);
         return new ResponseEntity<>(payment, HttpStatus.CREATED);
+    }
+
+    @GetMapping("{customerId}")
+    public ResponseEntity getCustomerById(@PathVariable UUID customerId) {
+        Optional<Customer> customer = customerRepository.findById(customerId);
+        if (customer.isEmpty()) {
+            return new ResponseEntity<>("Customer not found", HttpStatus.NOT_FOUND);
+        }
+
+        int amount = paymentRepository.findAll()
+                .stream()
+                .filter(e -> e.getCustomerId().equals(customerId)).mapToInt(Payment::getAmount).sum();
+
+        return new ResponseEntity<>(amount, HttpStatus.OK);
     }
 }
