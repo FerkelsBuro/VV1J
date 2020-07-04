@@ -43,6 +43,7 @@ public class CustomersController {
         try {
         customerRepository.save(customer);
         } catch (DataIntegrityViolationException e) {
+            //TODO
             return new ResponseEntity<>("Email already used", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(customer, HttpStatus.CREATED);
@@ -59,5 +60,17 @@ public class CustomersController {
 
         customerRepository.save(customer);
         return new ResponseEntity<>(customer, HttpStatus.OK);
+    }
+
+    @DeleteMapping("{customerId}")
+    public ResponseEntity delete(@PathVariable UUID customerId) {
+        Optional<Customer> customer = customerRepository.findById(customerId);
+
+        if (customer.isEmpty()) {
+            return new ResponseEntity<>("customer does not exist", HttpStatus.NOT_FOUND);
+        }
+
+        customerRepository.delete(customer.get());
+        return new ResponseEntity<>("customer deleted", HttpStatus.OK);
     }
 }
