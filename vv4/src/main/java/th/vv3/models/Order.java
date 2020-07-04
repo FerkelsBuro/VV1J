@@ -17,9 +17,13 @@ public class Order {
     private int amount;
     private Date createDate;
     private String approvedBy;
-
-    @ManyToOne(cascade = CascadeType.ALL)
+    //Merge vs All??
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Customer customer;
+
+    public Order() {
+
+    }
 
     public Order(int amount, Customer customer) {
         orderId = UUID.randomUUID();
