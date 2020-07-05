@@ -2,41 +2,43 @@ package th.vv3.controller;
 
 import jdk.internal.joptsimple.internal.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import th.vv3.models.Customer;
 import th.vv3.models.Order;
+import th.vv3.repositories.CustomerRepository;
 import th.vv3.repositories.OrderRepository;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @RestController
-@RequestMapping("api/v1/orders")
+@RequestMapping("api/v1/customers/{customerId}/orders")
 public class OrdersController {
     private OrderRepository orderRepository;
+    private CustomerRepository customerRepository;
 
-    public OrdersController(@Autowired OrderRepository orderRepository) {
+    public OrdersController(@Autowired OrderRepository orderRepository, @Autowired CustomerRepository customerRepository) {
         this.orderRepository = orderRepository;
+        this.customerRepository = customerRepository;
     }
 
     @PostMapping
-    public ResponseEntity create(@RequestBody Order order) {
-        if (order.getOrderId() != null) {
+    public ResponseEntity create(@RequestBody Order order, @PathVariable UUID customerId) {
+        Optional<Customer> customer = customerRepository.findById(customerId);
+
+        if (customer.isEmpty()) {
+            return new ResponseEntity<>("customer not found", HttpStatus.NOT_FOUND);
+        } else if (order.getOrderId() != null) {
             return new ResponseEntity<>("id must not be set", HttpStatus.BAD_REQUEST);
         } else if (order.getApprovedBy().equals(Strings.EMPTY)) {
             return new ResponseEntity<>("Order must be approved by someone", HttpStatus.BAD_REQUEST);
-        } else if (order.getCustomer() == null) {
-            return new ResponseEntity<>("Order must have a customer", HttpStatus.BAD_REQUEST);
         }
 
-        try {
-            orderRepository.save(order);
-        } catch (DataIntegrityViolationException e) {
-            //TODO
-            return new ResponseEntity<>("Customer does not exist", HttpStatus.BAD_REQUEST);
-        }
+        order.setCustomer(customer.get());
+
+        orderRepository.save(order);
         return new ResponseEntity<>(order, HttpStatus.CREATED);
     }
 }

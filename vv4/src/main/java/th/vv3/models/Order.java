@@ -61,6 +61,10 @@ public class Order {
         return customer;
     }
 
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
     public String getApprovedBy() {
         return approvedBy;
     }

@@ -1,6 +1,7 @@
 package th.vv3.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -49,7 +50,7 @@ public class PaymentsController {
         return new ResponseEntity<>(payment, HttpStatus.CREATED);
     }
 
-    @GetMapping("{customerId}")
+    @GetMapping("{customerId}/count")
     public ResponseEntity getCustomerById(@PathVariable UUID customerId) {
         Optional<Customer> customer = customerRepository.findById(customerId);
         if (customer.isEmpty()) {
