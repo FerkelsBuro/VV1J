@@ -3,6 +3,7 @@ package th.vv3.controller;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.hibernate.StaleObjectStateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -69,7 +70,12 @@ public class CustomersController {
             return new ResponseEntity<>("not found", HttpStatus.NOT_FOUND);
         }
 
-        customerRepository.save(customer);
+        try {
+            customer = customerRepository.saveAndFlush(customer);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>("version is outdated", HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 

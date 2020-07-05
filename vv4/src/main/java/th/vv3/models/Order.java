@@ -1,6 +1,7 @@
 package th.vv3.models;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
@@ -9,7 +10,7 @@ import java.util.UUID;
  * Order with an UUID
  */
 @Entity
-@Table(name = "`Order`")
+@Table(name = "`order`")
 public class Order {
     @Id
     @GeneratedValue

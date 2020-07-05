@@ -10,8 +10,6 @@ public class Payment {
     private UUID paymentId;
     private UUID orderId;
     private UUID customerId;
-    @ManyToOne(cascade = CascadeType.MERGE)
-    private Customer customer;
     private int amount;
 
     public UUID getPaymentId() {

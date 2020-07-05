@@ -2,7 +2,6 @@ package th.vv3.models;
 
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.UUID;
 
 
@@ -19,10 +18,12 @@ public class Customer {
     private String lastName;
     @Column(unique = true)
     private String email;
-
+    @Version
+    private Integer version;
 
     public Customer() {
     }
+
 
     public Customer(String salutation, String firstName, String lastName, String email) {
         customerId = UUID.randomUUID();
@@ -50,5 +51,13 @@ public class Customer {
 
     public String getEmail() {
         return email;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 }
