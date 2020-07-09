@@ -47,6 +47,13 @@ public class CustomersController {
     }
 
     @PostMapping
+    @ApiOperation( // SWAGGER
+            value = "Creates a Customer",
+            response = Customer.class,
+            produces = "application/json")
+    @ApiResponses(value = { // SWAGGER
+            @ApiResponse(code = 201, message = "Customer created"),
+            @ApiResponse(code = 400, message = "Bad Request"),})
     public ResponseEntity create(@RequestBody Customer customer) {
         if(customer.getCustomerId() != null) {
             return new ResponseEntity<>("id must not be set", HttpStatus.BAD_REQUEST);
@@ -56,12 +63,20 @@ public class CustomersController {
         customerRepository.save(customer);
         } catch (DataIntegrityViolationException e) {
             //TODO
-            return new ResponseEntity<>("Email already used", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Email already used", HttpStatus.CONFLICT);
         }
         return new ResponseEntity<>(customer, HttpStatus.CREATED);
     }
 
     @PutMapping
+    @ApiOperation( // SWAGGER
+            value = "Change a Customer",
+            response = Customer.class,
+            produces = "application/json")
+    @ApiResponses(value = { // SWAGGER
+            @ApiResponse(code = 201, message = "Customer changed"),
+            @ApiResponse(code = 400, message = "Bad Request"),
+            @ApiResponse(code = 404, message = "Customer not found"),})
     public ResponseEntity change(@RequestBody Customer customer) {
         if (customer.getCustomerId() == null) {
             return new ResponseEntity<>("id required", HttpStatus.BAD_REQUEST);

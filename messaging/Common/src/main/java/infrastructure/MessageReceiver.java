@@ -17,8 +17,6 @@ import java.util.function.Consumer;
  * The MessageReceiver can receive messages from an exchange
  */
 public class MessageReceiver {
-    private final ConnectionFactory factory = new ConnectionFactory();
-    private final Connection connection;
     private final Channel channel;
     private final Gson gson;
 
@@ -28,8 +26,9 @@ public class MessageReceiver {
 
     public MessageReceiver(Gson gson, String configPath) throws IOException, TimeoutException {
         this.gson = gson;
-        JsonConfigReader.readConfigJson(configPath, this.factory);
-        connection = factory.newConnection();
+        ConnectionFactory factory = new ConnectionFactory();
+        JsonConfigReader.readConfigJson(configPath, factory);
+        Connection connection = factory.newConnection();
         channel = connection.createChannel();
     }
 

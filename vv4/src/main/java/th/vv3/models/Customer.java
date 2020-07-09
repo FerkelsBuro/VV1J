@@ -37,6 +37,10 @@ public class Customer {
         return customerId;
     }
 
+    public void setCustomerId(UUID customerId) {
+        this.customerId = customerId;
+    }
+
     public String getSalutation() {
         return salutation;
     }

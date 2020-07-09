@@ -51,7 +51,7 @@ public class PaymentsController {
     }
 
     @GetMapping("{customerId}/count")
-    public ResponseEntity getCustomerById(@PathVariable UUID customerId) {
+    public ResponseEntity getAmountByCustomerId(@PathVariable UUID customerId) {
         Optional<Customer> customer = customerRepository.findById(customerId);
         if (customer.isEmpty()) {
             return new ResponseEntity<>("Customer not found", HttpStatus.NOT_FOUND);
