@@ -19,7 +19,7 @@ public class TestService {
     public static void main(String[] args) throws IOException, TimeoutException {
         MessageSender messageSender = new MessageSender(gson);
 
-        Customer customer = new Customer("afdsafafa", "bfasfdsafas", "cfdsafdsaf", "dfdsafdsafsafsa");
+        Customer customer = new Customer("Unknown", "bfasfdsafas", "cfdsafdsaf", "dfdsafdsafsafsa");
         Order order = new Order(700, customer);
         order.setApprovedBy("blabla");
 
