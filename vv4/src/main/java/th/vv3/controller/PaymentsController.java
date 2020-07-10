@@ -1,7 +1,6 @@
 package th.vv3.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -57,10 +56,16 @@ public class PaymentsController {
             return new ResponseEntity<>("Customer not found", HttpStatus.NOT_FOUND);
         }
 
-        int amount = paymentRepository.findAll()
+        int amountOrders = orderRepository.findAll()
+                .stream()
+                .filter(e -> e.getCustomer().getCustomerId().equals(customerId)).mapToInt(Order::getAmount).sum();
+
+        int amountPayed = paymentRepository.findAll()
                 .stream()
                 .filter(e -> e.getCustomerId().equals(customerId)).mapToInt(Payment::getAmount).sum();
 
-        return new ResponseEntity<>(amount, HttpStatus.OK);
+        int amountOpen = amountOrders - amountPayed;
+
+        return new ResponseEntity<>(amountOpen, HttpStatus.OK);
     }
 }

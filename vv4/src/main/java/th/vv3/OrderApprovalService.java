@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import th.vv3.controller.CustomersController;
+import th.vv3.controller.OrdersController;
 import th.vv3.controller.PaymentsController;
 import th.vv3.models.Customer;
 import th.vv3.models.Order;
@@ -27,11 +28,13 @@ public class OrderApprovalService implements CommandLineRunner {
     private MessageSender messageSender = new MessageSender(gson);
 
     private CustomersController customersController;
+    private OrdersController ordersController;
     private PaymentsController paymentsController;
 
     @Autowired
-    public OrderApprovalService(CustomersController customersController, PaymentsController paymentsController) throws IOException, TimeoutException {
+    public OrderApprovalService(CustomersController customersController, OrdersController ordersController, PaymentsController paymentsController) throws IOException, TimeoutException {
         this.customersController = customersController;
+        this.ordersController = ordersController;
         this.paymentsController = paymentsController;
     }
 
@@ -58,10 +61,18 @@ public class OrderApprovalService implements CommandLineRunner {
         ResponseEntity amount = paymentsController.getAmountByCustomerId(customer.getCustomerId());
         if (amount.getStatusCode() == HttpStatus.NOT_FOUND
                 || amount.getStatusCode() == HttpStatus.OK && Integer.parseInt(Objects.requireNonNull(amount.getBody()).toString()) < 1000) {
-            customer.setCustomerId(null);
-            ResponseEntity responseEntity = customersController.create(customer);
+
+            if (amount.getStatusCode() == HttpStatus.NOT_FOUND) {
+                ResponseEntity responseEntity = customersController.create(customer);
+                System.out.println("response: " + responseEntity);
+            }
+            order.setOrderId(null);
+            ResponseEntity responseEntity = ordersController.create(order, customer.getCustomerId());
+            System.out.println("response: " + responseEntity);
+
             messageSender.send(Constants.Exchanges.APPROVED_CUSTOMERS, customer);
-            System.out.println("response: " + responseEntity + "\n");
+            System.out.println();
+
         } else {
             messageSender.send(Constants.Exchanges.DECLINED_CUSTOMERS, customer);
             System.out.println("Customer was declined\n");

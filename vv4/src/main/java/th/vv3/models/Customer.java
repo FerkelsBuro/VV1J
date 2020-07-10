@@ -11,7 +11,7 @@ import java.util.UUID;
 @Entity
 public class Customer {
     @Id
-    @GeneratedValue
+//    @GeneratedValue
     private UUID customerId;
     private String salutation;
     private String firstName;

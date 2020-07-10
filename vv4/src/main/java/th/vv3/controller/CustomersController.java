@@ -55,10 +55,12 @@ public class CustomersController {
             @ApiResponse(code = 201, message = "Customer created"),
             @ApiResponse(code = 400, message = "Bad Request"),})
     public ResponseEntity create(@RequestBody Customer customer) {
-        if(customer.getCustomerId() != null) {
-            return new ResponseEntity<>("id must not be set", HttpStatus.BAD_REQUEST);
+//        if(customer.getCustomerId() != null) {
+//            return new ResponseEntity<>("id must not be set", HttpStatus.BAD_REQUEST);
+//        }
+        if (customer.getCustomerId() == null) {
+            customer.setCustomerId(UUID.randomUUID());
         }
-
         try {
         customerRepository.save(customer);
         } catch (DataIntegrityViolationException e) {

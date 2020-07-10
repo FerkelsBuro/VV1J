@@ -1,7 +1,6 @@
 package th.vv3.models;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
@@ -18,7 +17,6 @@ public class Order {
     private int amount;
     private Date createDate;
     private String approvedBy;
-    //Merge vs All??
     @ManyToOne(cascade = CascadeType.MERGE)
     private Customer customer;
 
@@ -52,6 +50,10 @@ public class Order {
 
     public UUID getOrderId() {
         return orderId;
+    }
+
+    public void setOrderId(UUID orderId) {
+        this.orderId = orderId;
     }
 
     public Date getCreateDate() {
