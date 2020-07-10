@@ -12,6 +12,9 @@ public class Constants {
         public static final String NEED_APPROVAL = "NeedsApprovalQueue";
         public static final String APPROVED_ORDERS = "ApprovedOrdersQueue";
         public static final String DECLINED_ORDER = "DeclinedOrdersQueue";
+
+        public static final String APPROVED_CUSTOMERS = "ApprovedCustomersQueue";
+        public static final String DECLINED_CUSTOMERS = "DeclinedCustomersQueue";
         private Queues() {
         }
     }
@@ -21,6 +24,9 @@ public class Constants {
         public static final String NEED_APPROVAL = "NeedsApprovalExchange";
         public static final String APPROVED_ORDERS = "ApprovedOrdersExchange";
         public static final String DECLINED_ORDER = "DeclinedOrdersExchange";
+
+        public static final String APPROVED_CUSTOMERS = "ApprovedCustomersExchange";
+        public static final String DECLINED_CUSTOMERS = "DeclinedCustomersQueue";
         private Exchanges() {
         }
     }
