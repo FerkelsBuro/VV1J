@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import core.loggers.StaticLogger;
 import infrastructure.MessageReceiver;
 import infrastructure.MessageSender;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -36,7 +37,8 @@ public class MarketingService {
         Thread approvedCustomersListener = new Thread(new ApprovedCustomersListener(marketingService::createAccount, marketingService.messageReceiver));
         approvedCustomersListener.start();
 
-        marketingService.getAllAccounts();
+        Thread declinedCustomersListener = new Thread(new DeclinedCustomersListener(marketingService::deleteCustomer, marketingService.messageReceiver));
+        declinedCustomersListener.start();
     }
 
     private void createAccount(Customer customer) {
@@ -52,6 +54,18 @@ public class MarketingService {
                 .block();
 
         StaticLogger.logger.info(response);
+    }
+
+    private void deleteCustomer(Customer customer) {
+        WebClient.RequestHeadersSpec<?> uri = client.delete()
+                .uri("api/v1/Account/" + customer.getCustomerId())
+                .headers(httpHeaders -> httpHeaders.setBearerAuth(TOKEN));
+
+        HttpStatus response = Objects.requireNonNull(uri.exchange()
+                .block())
+                .statusCode();
+
+        StaticLogger.logger.info(String.valueOf(response));
     }
 
     private CustomerAccount getAccountById(UUID id) {
