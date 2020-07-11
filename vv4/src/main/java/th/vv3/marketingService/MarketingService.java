@@ -20,7 +20,7 @@ import java.util.UUID;
 import java.util.concurrent.TimeoutException;
 
 public class MarketingService {
-    private static final String TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InN0dWR3aWVyYWw1MjQwIiwibmJmIjoxNTk0MTIyMzUyLCJleHAiOjE1OTQ3MjcxNTIsImlhdCI6MTU5NDEyMjM1Mn0.KThLzJY235gaD-yHeQg0v9fs0n5f2y-wuX53N3xTWWg";
+    public static final String TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InN0dWR3aWVyYWw1MjQwIiwibmJmIjoxNTk0MTIyMzUyLCJleHAiOjE1OTQ3MjcxNTIsImlhdCI6MTU5NDEyMjM1Mn0.KThLzJY235gaD-yHeQg0v9fs0n5f2y-wuX53N3xTWWg";
     //    private static WebClient client = WebClient.create("http://localhost:8080");
     private static final WebClient client = WebClient.create("https://vvdemomailserviceprovider.azurewebsites.net");
 
@@ -39,6 +39,9 @@ public class MarketingService {
 
         Thread declinedCustomersListener = new Thread(new DeclinedCustomersListener(marketingService::deleteCustomer, marketingService.messageReceiver));
         declinedCustomersListener.start();
+
+        Thread mailSpanThread = new Thread(new MailSpamThread(client, marketingService::getAllAccounts));
+        mailSpanThread.start();
     }
 
     private void createAccount(Customer customer) {
