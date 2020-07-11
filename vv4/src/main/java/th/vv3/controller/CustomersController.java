@@ -85,6 +85,7 @@ public class CustomersController {
         }
 
         try {
+            customer.setCustomerId(customerId);
             customer = customerRepository.saveAndFlush(customer);
         }
         catch (Exception e) {
