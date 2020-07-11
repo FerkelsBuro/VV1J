@@ -70,7 +70,7 @@ public class CustomersController {
         return new ResponseEntity<>(customer, HttpStatus.CREATED);
     }
 
-    @PutMapping
+    @PutMapping("{customerId}")
     @ApiOperation( // SWAGGER
             value = "Change a Customer",
             response = Customer.class,
@@ -79,11 +79,8 @@ public class CustomersController {
             @ApiResponse(code = 201, message = "Customer changed"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 404, message = "Customer not found"),})
-    public ResponseEntity change(@RequestBody Customer customer) {
-        if (customer.getCustomerId() == null) {
-            return new ResponseEntity<>("id required", HttpStatus.BAD_REQUEST);
-        }
-        if (customerRepository.findById(customer.getCustomerId()).equals(Optional.empty())) {
+    public ResponseEntity change(@RequestBody Customer customer, @PathVariable UUID customerId) {
+        if (customerRepository.findById(customerId).equals(Optional.empty())) {
             return new ResponseEntity<>("not found", HttpStatus.NOT_FOUND);
         }
 
