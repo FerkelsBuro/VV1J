@@ -19,6 +19,8 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.TimeoutException;
 
+// LW: Alle HTTP aufrufe in seperate Klasse aufteilen
+// LW: z.B. api.AccountClient, api.CustomerClient
 public class MarketingService {
     private static final String TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InN0dWR3aWVyYWw1MjQwIiwibmJmIjoxNTk0MTIyMzUyLCJleHAiOjE1OTQ3MjcxNTIsImlhdCI6MTU5NDEyMjM1Mn0.KThLzJY235gaD-yHeQg0v9fs0n5f2y-wuX53N3xTWWg";
     //    private static WebClient client = WebClient.create("http://localhost:8080");

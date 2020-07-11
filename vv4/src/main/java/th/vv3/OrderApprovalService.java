@@ -21,8 +21,15 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.concurrent.TimeoutException;
 
+/**
+* LW: Hier steht denke ich zu viel drin. 
+* Ich denke man sollte einen zentralen Einstiegspunkt haben (public static void main)
+* und der Rest steht in einer anderen Klasse drin.
+ */
 @SpringBootApplication
 public class OrderApprovalService implements CommandLineRunner {
+    // LW: Das erste sollte über Autowired gesetzt werden können, zweites und drittes ggf auch 
+    // LW: (Dann würde Gson hier gar nicht benötigt werden)
     private static Gson gson = new Gson();
     private MessageReceiver messageReceiver = new MessageReceiver(gson);
     private MessageSender messageSender = new MessageSender(gson);

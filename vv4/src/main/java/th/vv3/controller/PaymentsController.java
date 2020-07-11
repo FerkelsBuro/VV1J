@@ -28,8 +28,11 @@ public class PaymentsController {
         this.orderRepository = orderRepository;
     }
 
+
+    // LW: customers/{customerId}/payments passt hier vielleicht besser
     @PostMapping
     public ResponseEntity create(@RequestBody Payment payment) {
+        // LW: DTO ohne Id wäre eventuell praktisch
         if (payment.getPaymentId() != null) {
             return new ResponseEntity<>("id must not be set", HttpStatus.BAD_REQUEST);
         }
@@ -41,6 +44,7 @@ public class PaymentsController {
         if (order.isEmpty()) {
             return new ResponseEntity<>("Order does not exist", HttpStatus.NOT_FOUND);
         }
+        // LW: ggf. order.validatePayment(payment) Methode einführen
         if (order.get().getAmount() < payment.getAmount()) {
             return new ResponseEntity<>("Order.amount < Payment.amount is not allowed", HttpStatus.BAD_REQUEST);
         }
@@ -56,6 +60,8 @@ public class PaymentsController {
             return new ResponseEntity<>("Customer not found", HttpStatus.NOT_FOUND);
         }
 
+        // LW: Lässt sich über SQL selbst bestimmt besser lösen ist aber auf die schnelle wahrscheinlich zu kompliziert
+        // LW: Man könnte die 7 Zeilen aber in eine extra/andere Klasse auslagern
         int amountOrders = orderRepository.findAll()
                 .stream()
                 .filter(e -> e.getCustomer().getCustomerId().equals(customerId)).mapToInt(Order::getAmount).sum();

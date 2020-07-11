@@ -58,6 +58,8 @@ public class CustomersController {
 //        if(customer.getCustomerId() != null) {
 //            return new ResponseEntity<>("id must not be set", HttpStatus.BAD_REQUEST);
 //        }
+        // LW: Die ID sollte nur von der Datenbank gesetzt werden, prüfung also überflüssig
+        // Wäre eventuell geschickt, wenn man ein DTO erstellt, dass die ID als Feld nicht hat
         if (customer.getCustomerId() == null) {
             customer.setCustomerId(UUID.randomUUID());
         }
@@ -70,6 +72,7 @@ public class CustomersController {
         return new ResponseEntity<>(customer, HttpStatus.CREATED);
     }
 
+    // LW: PUT sind nach Konvention so aufgebaut: /entity/{id} (siehe DeleteMapping)
     @PutMapping
     @ApiOperation( // SWAGGER
             value = "Change a Customer",

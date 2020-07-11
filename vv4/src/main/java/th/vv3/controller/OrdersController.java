@@ -1,5 +1,6 @@
 package th.vv3.controller;
 
+// LW: Das soll denke ich nicht importiert weren ('internal')
 import jdk.internal.joptsimple.internal.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,7 +31,11 @@ public class OrdersController {
 
         if (customer.isEmpty()) {
             return new ResponseEntity<>("customer not found", HttpStatus.NOT_FOUND);
-        } else if (order.getOrderId() != null) {
+        } 
+        // LW: Besser wäre es sowas über seperate Validatioren abzufangen
+        // LW: Vielleicht ist das hier was: https://hibernate.org/validator/
+        // LW: Geht zumindest in die Richtung
+        else if (order.getOrderId() != null) {
             return new ResponseEntity<>("id must not be set", HttpStatus.BAD_REQUEST);
         } else if (order.getApprovedBy().equals(Strings.EMPTY)) {
             return new ResponseEntity<>("Order must be approved by someone", HttpStatus.BAD_REQUEST);
