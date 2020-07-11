@@ -2,7 +2,6 @@ package th.vv3.marketingService;
 
 import com.google.common.net.HttpHeaders;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import core.loggers.StaticLogger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,15 +11,32 @@ import th.vv3.DTOs.CustomerAccount;
 import th.vv3.DTOs.Email;
 import th.vv3.DTOs.EmailResponse;
 
-import java.lang.reflect.Type;
+import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.function.Supplier;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 public class MailSpamThread implements Runnable {
     private final static Duration INTERVAL = Duration.ofMinutes(5);
+
+    private static Logger mailStatusLogger = Logger.getLogger("MyLog");
+
+    static {
+        try {
+            FileHandler fh = new FileHandler("logs" + File.separator + "Email.log");
+            mailStatusLogger.addHandler(fh);
+            SimpleFormatter formatter = new SimpleFormatter();
+            fh.setFormatter(formatter);
+        } catch (SecurityException | IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private final WebClient client;
     private final Gson gson = new Gson();
@@ -37,7 +53,7 @@ public class MailSpamThread implements Runnable {
     public void run() {
         while (!Thread.currentThread().isInterrupted()) {
             UUID emailId = spamCustomers(getCustomers.get());
-            StaticLogger.logger.info("Status of Email " + emailId + ": " + getStatusOfEmail(emailId));
+            mailStatusLogger.info("Status of Email " + emailId + ": " + getStatusOfEmail(emailId));
             try {
                 Thread.sleep(INTERVAL.toMillis());
             } catch (InterruptedException e) {
