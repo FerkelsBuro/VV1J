@@ -56,16 +56,28 @@ public class PaymentsController {
             return new ResponseEntity<>("Customer not found", HttpStatus.NOT_FOUND);
         }
 
-        int amountOrders = orderRepository.findAll()
-                .stream()
-                .filter(e -> e.getCustomer().getCustomerId().equals(customerId)).mapToInt(Order::getAmount).sum();
-
-        int amountPayed = paymentRepository.findAll()
-                .stream()
-                .filter(e -> e.getCustomerId().equals(customerId)).mapToInt(Payment::getAmount).sum();
-
-        int amountOpen = amountOrders - amountPayed;
+        int amountOpen = getAmountOpen(customerId);
 
         return new ResponseEntity<>(amountOpen, HttpStatus.OK);
+    }
+
+    private int getAmountOpen(UUID customerId) {
+        int amountOrders = getAmountOrders(customerId);
+
+        int amountPayed = getAmountPayed(customerId);
+
+        return amountOrders - amountPayed;
+    }
+
+    private int getAmountPayed(UUID customerId) {
+        return paymentRepository.findAll()
+                    .stream()
+                    .filter(e -> e.getCustomerId().equals(customerId)).mapToInt(Payment::getAmount).sum();
+    }
+
+    private int getAmountOrders(UUID customerId) {
+        return orderRepository.findAll()
+                    .stream()
+                    .filter(e -> e.getCustomer().getCustomerId().equals(customerId)).mapToInt(Order::getAmount).sum();
     }
 }
