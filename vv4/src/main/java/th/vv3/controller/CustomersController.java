@@ -64,9 +64,6 @@ public class CustomersController {
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 409, message = "Email already used"),})
     public ResponseEntity create(@RequestBody Customer customer) {
-//        if(customer.getCustomerId() != null) {
-//            return new ResponseEntity<>("id must not be set", HttpStatus.BAD_REQUEST);
-//        }
         if (customer.getCustomerId() == null) {
             customer.setCustomerId(UUID.randomUUID());
         }
