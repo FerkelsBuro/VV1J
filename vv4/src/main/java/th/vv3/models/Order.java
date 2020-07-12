@@ -14,7 +14,7 @@ import java.util.UUID;
 @Table(name = "`order`")
 public class Order {
     @Id
-    @GeneratedValue
+    @Column(unique = true)
     private UUID orderId;
     private int amount;
     private Date createDate;
@@ -23,11 +23,14 @@ public class Order {
     private Customer customer;
 
     public Order() {
-
     }
 
     public Order(OrderReadDto dto) {
-        orderId = dto.getOrderId();
+        if(dto.getOrderId() == null) {
+            orderId = UUID.randomUUID();
+        } else {
+            orderId = dto.getOrderId();
+        }
         amount = dto.getAmount();
         createDate = dto.getCreateDate();
         approvedBy = dto.getApprovedBy();

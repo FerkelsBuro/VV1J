@@ -1,0 +1,615 @@
+{
+	"info": {
+		"_postman_id": "72eb8423-8a8d-4223-9a64-845abc1692a3",
+		"name": "VV3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Customers",
+			"item": [
+				{
+					"name": "GetAllCustomers 200",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCustomerById 200",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/customers/411370ae-277b-4c5b-a4c4-5a7a200f761b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"411370ae-277b-4c5b-a4c4-5a7a200f761b"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						},
+						"description": "Gets the Customer created by \"CreateCustomer with Id\" if is called after that request"
+					},
+					"response": []
+				},
+				{
+					"name": "GetCustomerById 404",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/customers/423370ae-273b-4c5b-a4c4-5a7a200f761b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"423370ae-273b-4c5b-a4c4-5a7a200f761b"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						},
+						"description": "returns 404 if customer has not been created before"
+					},
+					"response": []
+				},
+				{
+					"name": "CreateCustomer 201",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"oink@firma.de\",\r\n  \"firstName\": \"ferkel\",\r\n  \"lastName\": \"oink\",\r\n  \"salutation\": \"Unknown\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateCustomer 409 because Email",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"oink@firma.de\",\r\n  \"firstName\": \"ferkel\",\r\n  \"lastName\": \"oink\",\r\n  \"salutation\": \"Unknown\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"customers"
+							]
+						},
+						"description": "Returns a StatusCode 409 if executed afer \"CreateCustomer\""
+					},
+					"response": []
+				},
+				{
+					"name": "CreateCustomer With Id 201",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"customerId\": \"411370ae-277b-4c5b-a4c4-5a7a200f761b\",\r\n  \"email\": \"oinkoink@firma.de\",\r\n  \"firstName\": \"ferkel\",\r\n  \"lastName\": \"oink\",\r\n  \"salutation\": \"Unknown\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateCustomer With Id 409 because Id",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"customerId\": \"211370ae-277b-4c5b-a4c4-5a7a200f761b\",\r\n  \"email\": \"oinkoink@firma.de\",\r\n  \"firstName\": \"ferkel\",\r\n  \"lastName\": \"oink\",\r\n  \"salutation\": \"Unknown\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"customers"
+							]
+						},
+						"description": "Returns a StatusCode 409 if executed afer \"CreateCustomer with Id\""
+					},
+					"response": []
+				},
+				{
+					"name": "ChangeCustomer 200",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"salutation\": \"Unknown\",\r\n    \"firstName\": \"frekel\",\r\n    \"lastName\": \"oink\",\r\n    \"email\": \"oink@firma.de\",\r\n    \"version\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/customers/411370ae-277b-4c5b-a4c4-5a7a200f761b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"411370ae-277b-4c5b-a4c4-5a7a200f761b"
+							]
+						},
+						"description": "Changes the Customer that is created with \"CreateCustomer with Id\""
+					},
+					"response": []
+				},
+				{
+					"name": "ChangeCustomer 400 Version outdated",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"salutation\": \"Unknown\",\r\n    \"firstName\": \"frekel\",\r\n    \"lastName\": \"oink\",\r\n    \"email\": \"oink@firma.de\",\r\n    \"version\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/customers/411370ae-277b-4c5b-a4c4-5a7a200f761b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"411370ae-277b-4c5b-a4c4-5a7a200f761b"
+							]
+						},
+						"description": "returns status code 400 \"Version updated\" if this request is called after \"ChangeCustomer\""
+					},
+					"response": []
+				},
+				{
+					"name": "ChangeCustomer 404",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"customerId\": \"630d5264-f61b-479c-b2af-d51550e38435\",\r\n    \"salutation\": \"Unknown\",\r\n    \"firstName\": \"frekel\",\r\n    \"lastName\": \"oink\",\r\n    \"email\": \"oink@firma.de\",\r\n    \"version\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/customers/f0c3993a-d1bc-488d-b8ca-91a7320c2fa7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"f0c3993a-d1bc-488d-b8ca-91a7320c2fa7"
+							]
+						},
+						"description": "tries to change a customer that doesn't exist (unless it was created of course)"
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteCustomer 200",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/customers/411370ae-277b-4c5b-a4c4-5a7a200f761b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"411370ae-277b-4c5b-a4c4-5a7a200f761b"
+							]
+						},
+						"description": "Deletes the Customer created with \"CreateCustomer with Id\""
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteCustomer 404",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/customers/b717adbb-d21c-42a1-ad5c-61cac933a2dc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"b717adbb-d21c-42a1-ad5c-61cac933a2dc"
+							]
+						},
+						"description": "returns 404 if customer has not been created before"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Payments",
+			"item": [
+				{
+					"name": "GetSumByCustomer 200",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/payments/411370ae-277b-4c5b-a4c4-5a7a200f761b/count",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"payments",
+								"411370ae-277b-4c5b-a4c4-5a7a200f761b",
+								"count"
+							]
+						},
+						"description": "returns the open amount of the Customer created with \"CreateCustomer with Id\" (0 if no Order/payment has been created)"
+					},
+					"response": []
+				},
+				{
+					"name": "GetSumByCustomer 404",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/payments/eab9c6b0-8c0e-454c-b88d-9d865629c45d/count",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"payments",
+								"eab9c6b0-8c0e-454c-b88d-9d865629c45d",
+								"count"
+							]
+						},
+						"description": "return 404 if Customer has not been created before"
+					},
+					"response": []
+				},
+				{
+					"name": "CreatePayment 201",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"amount\": 50,\r\n  \"customerId\": \"411370ae-277b-4c5b-a4c4-5a7a200f761b\",\r\n  \"orderId\": \"89187c07-a8d1-45c9-8f9e-924ee665609e\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/payments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"payments"
+							]
+						},
+						"description": "successfully creates a payment if both a customer and an order with id have been created before"
+					},
+					"response": []
+				},
+				{
+					"name": "CreatePayment 404",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"amount\": 50,\r\n  \"customerId\": \"411370ae-277b-4c5b-a4c4-5a7a200f761b\",\r\n  \"orderId\": \"89187c07-a8d1-45c9-8f9e-924ee665609e\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/payments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"payments"
+							]
+						},
+						"description": "returns 404 if the customer and order have not been created before (uses a random id for them)"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "CreateOrder 201",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"amount\": 100,\r\n  \"approvedBy\": \"string\",\r\n  \"createDate\": \"2020-07-04T21:06:03.906Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/customers/411370ae-277b-4c5b-a4c4-5a7a200f761b/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"411370ae-277b-4c5b-a4c4-5a7a200f761b",
+								"orders"
+							]
+						},
+						"description": "creates an order for Customer created with \"CreateCustomer with Id\" (needs to executed befor obviously)"
+					},
+					"response": []
+				},
+				{
+					"name": "CreateOrder With Id 201",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"orderId\": \"89187c07-a8d1-45c9-8f9e-924ee665609e\",\r\n  \"amount\": 100,\r\n  \"approvedBy\": \"string\",\r\n  \"createDate\": \"2020-07-04T21:06:03.906Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/customers/411370ae-277b-4c5b-a4c4-5a7a200f761b/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"411370ae-277b-4c5b-a4c4-5a7a200f761b",
+								"orders"
+							]
+						},
+						"description": "returns 404 if the Customer with the specified id has not been created before"
+					},
+					"response": []
+				},
+				{
+					"name": "CreateOrder With Id 409",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"orderId\": \"89187c07-a8d1-45c9-8f9e-924ee665609e\",\r\n  \"amount\": 100,\r\n  \"approvedBy\": \"string\",\r\n  \"createDate\": \"2020-07-04T21:06:03.906Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/customers/411370ae-277b-4c5b-a4c4-5a7a200f761b/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"411370ae-277b-4c5b-a4c4-5a7a200f761b",
+								"orders"
+							]
+						},
+						"description": "returns 409 if used after \"Create Order With Id\""
+					},
+					"response": []
+				},
+				{
+					"name": "CreateOrder 404",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"amount\": 100,\r\n  \"approvedBy\": \"string\",\r\n  \"createDate\": \"2020-07-04T21:06:03.906Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/customers/355370de-277b-4c5b-a4c4-5a7a200f761b/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"355370de-277b-4c5b-a4c4-5a7a200f761b",
+								"orders"
+							]
+						},
+						"description": "returns 404 if customer with specified id has not been created"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -46,10 +46,14 @@ public class OrdersController {
             return new ResponseEntity<>("Order must be approved by someone", HttpStatus.BAD_REQUEST);
         }
 
+        if (orderRead.getOrderId() != null && orderRepository.findById(orderRead.getOrderId()).isPresent()) {
+            return new ResponseEntity<>("Order with same Id already exists", HttpStatus.CONFLICT);
+        }
         Order order = new Order(orderRead);
         order.setCustomer(customer.get());
 
-        orderRepository.save(order);
+        System.out.println(orderRepository.saveAndFlush(order));
+
         return new ResponseEntity<>(order, HttpStatus.CREATED);
     }
 }

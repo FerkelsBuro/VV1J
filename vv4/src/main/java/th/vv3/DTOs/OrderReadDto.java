@@ -22,6 +22,9 @@ public class OrderReadDto {
         approvedBy = order.getApprovedBy();
     }
 
+    public OrderReadDto() {
+    }
+
     public UUID getOrderId() {
         return orderId;
     }
