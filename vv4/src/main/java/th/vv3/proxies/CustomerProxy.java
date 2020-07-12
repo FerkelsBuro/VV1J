@@ -14,21 +14,24 @@ import th.vv3.models.Customer;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.function.Supplier;
 
 public class CustomerProxy {
-    public static final String TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InN0dWR3aWVyYWw1MjQwIiwibmJmIjoxNTk0MTIyMzUyLCJleHAiOjE1OTQ3MjcxNTIsImlhdCI6MTU5NDEyMjM1Mn0.KThLzJY235gaD-yHeQg0v9fs0n5f2y-wuX53N3xTWWg";
-    private static final Gson gson = new Gson();
-    private final WebClient client = WebClient.create("https://vvdemomailserviceprovider.azurewebsites.net");
+    private final Gson gson;
+    private final WebClient client;
+    private Supplier<String> getToken;
 
-    public WebClient getClient() {
-        return client;
+    public CustomerProxy(Gson gson, WebClient client, Supplier<String> getToken) {
+        this.gson = gson;
+        this.client = client;
+        this.getToken = getToken;
     }
 
     public void createAccount(Customer customer) {
         WebClient.RequestHeadersSpec<?> uri = client.post()
                 .uri("api/v1/Account")
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .headers(httpHeaders -> httpHeaders.setBearerAuth(TOKEN))
+                .headers(httpHeaders -> httpHeaders.setBearerAuth(getToken.get()))
                 .body(Mono.just(gson.toJson(new CustomerAccount(customer))), String.class);
 
         String response = Objects.requireNonNull(uri.exchange()
@@ -42,7 +45,7 @@ public class CustomerProxy {
     public void deleteCustomer(Customer customer) {
         WebClient.RequestHeadersSpec<?> uri = client.delete()
                 .uri("api/v1/Account/" + customer.getCustomerId())
-                .headers(httpHeaders -> httpHeaders.setBearerAuth(TOKEN));
+                .headers(httpHeaders -> httpHeaders.setBearerAuth(getToken.get()));
 
         HttpStatus response = Objects.requireNonNull(uri.exchange()
                 .block())
@@ -54,7 +57,7 @@ public class CustomerProxy {
     public CustomerAccount getAccountById(UUID id) {
         WebClient.RequestHeadersSpec<?> uri = client.get()
                 .uri("api/v1/Account/" + id)
-                .headers(httpHeaders -> httpHeaders.setBearerAuth(TOKEN));
+                .headers(httpHeaders -> httpHeaders.setBearerAuth(getToken.get()));
 
         String response = Objects.requireNonNull(uri.exchange()
                 .block())
@@ -69,7 +72,7 @@ public class CustomerProxy {
     public List<CustomerAccount> getAllAccounts() {
         WebClient.RequestHeadersSpec<?> uri = client.get()
                 .uri("api/v1/Account")
-                .headers(httpHeaders -> httpHeaders.setBearerAuth(TOKEN));
+                .headers(httpHeaders -> httpHeaders.setBearerAuth(getToken.get()));
 
         String response = Objects.requireNonNull(uri.exchange()
                 .block())

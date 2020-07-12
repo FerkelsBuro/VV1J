@@ -14,11 +14,18 @@ import th.vv3.DTOs.EmailResponse;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.function.Supplier;
 
 public class EmailProxy {
-    public static final String TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InN0dWR3aWVyYWw1MjQwIiwibmJmIjoxNTk0MTIyMzUyLCJleHAiOjE1OTQ3MjcxNTIsImlhdCI6MTU5NDEyMjM1Mn0.KThLzJY235gaD-yHeQg0v9fs0n5f2y-wuX53N3xTWWg";
-    private static final Gson gson = new Gson();
-    private final WebClient client = WebClient.create("https://vvdemomailserviceprovider.azurewebsites.net");
+    private final Gson gson;
+    private final WebClient client;
+    private Supplier<String> getToken;
+
+    public EmailProxy(Gson gson, WebClient client, Supplier<String> getToken) {
+        this.gson = gson;
+        this.client = client;
+        this.getToken = getToken;
+    }
 
     public UUID spamCustomers(List<CustomerAccount> customers) {
         Email email = new Email(customers, "buy new product!!");
@@ -26,7 +33,7 @@ public class EmailProxy {
         WebClient.RequestHeadersSpec<?> uri = client.post()
                 .uri("api/v1/Email")
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .headers(httpHeaders -> httpHeaders.setBearerAuth(TOKEN))
+                .headers(httpHeaders -> httpHeaders.setBearerAuth(getToken.get()))
                 .body(Mono.just(gson.toJson(email)), String.class);
 
         HttpStatus response = Objects.requireNonNull(uri.exchange()
@@ -41,7 +48,7 @@ public class EmailProxy {
     public String getStatusOfEmail(UUID emailId) {
         WebClient.RequestHeadersSpec<?> uri = client.get()
                 .uri("api/v1/Email/" + emailId)
-                .headers(httpHeaders -> httpHeaders.setBearerAuth(TOKEN));
+                .headers(httpHeaders -> httpHeaders.setBearerAuth(getToken.get()));
 
         String response = Objects.requireNonNull(uri.exchange()
                 .block())
