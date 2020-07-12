@@ -21,13 +21,13 @@ configurations {
 }
 
 dependencies {
-//    compile("org.springframework.boot:spring-boot-starter-data-jpa")
-//    runtime('mysql:mysql-connector-java')
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    runtime('mysql:mysql-connector-java')
     compile 'com.rabbitmq:amqp-client:5.9.0'
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    runtimeOnly 'com.h2database:h2'
+//    runtimeOnly 'com.h2database:h2'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }

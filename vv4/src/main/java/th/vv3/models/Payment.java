@@ -9,6 +9,8 @@ public class Payment {
     @GeneratedValue
     private UUID paymentId;
     private UUID orderId;
+    @ManyToOne
+    private Order order;
     private UUID customerId;
     private int amount;
 
@@ -26,5 +28,9 @@ public class Payment {
 
     public int getAmount() {
         return amount;
+    }
+
+    public void setCustomerId(UUID customerId) {
+        this.customerId = customerId;
     }
 }
