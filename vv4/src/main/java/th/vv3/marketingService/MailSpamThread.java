@@ -10,6 +10,8 @@ import reactor.core.publisher.Mono;
 import th.vv3.DTOs.CustomerAccount;
 import th.vv3.DTOs.Email;
 import th.vv3.DTOs.EmailResponse;
+import th.vv3.proxies.CustomerProxy;
+import th.vv3.proxies.EmailProxy;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,22 +40,22 @@ public class MailSpamThread implements Runnable {
         }
     }
 
-    private final WebClient client;
     private final Gson gson = new Gson();
 
-    private Supplier<List<CustomerAccount>> getCustomers;
+    private EmailProxy emailProxy;
+    private CustomerProxy customerProxy;
 
-    public MailSpamThread(WebClient client, Supplier<List<CustomerAccount>> getCustomers) {
-        this.client = client;
-        this.getCustomers = getCustomers;
+    public MailSpamThread(EmailProxy emailProxy, CustomerProxy customerProxy) {
+        this.emailProxy = emailProxy;
+        this.customerProxy = customerProxy;
     }
 
 
     @Override
     public void run() {
         while (!Thread.currentThread().isInterrupted()) {
-            UUID emailId = spamCustomers(getCustomers.get());
-            mailStatusLogger.info("Status of Email " + emailId + ": " + getStatusOfEmail(emailId));
+            UUID emailId = emailProxy.spamCustomers(customerProxy.getAllAccounts());
+            mailStatusLogger.info("Status of Email " + emailId + ": " + emailProxy.getStatusOfEmail(emailId));
             try {
                 Thread.sleep(INTERVAL.toMillis());
             } catch (InterruptedException e) {
@@ -62,37 +64,5 @@ public class MailSpamThread implements Runnable {
         }
     }
 
-    private UUID spamCustomers(List<CustomerAccount> customers) {
-        Email email = new Email(customers, "buy new product!!");
 
-        WebClient.RequestHeadersSpec<?> uri = client.post()
-                .uri("api/v1/Email")
-                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .headers(httpHeaders -> httpHeaders.setBearerAuth(MarketingService.TOKEN))
-                .body(Mono.just(gson.toJson(email)), String.class);
-
-        HttpStatus response = Objects.requireNonNull(uri.exchange()
-                .block())
-                .statusCode();
-
-        StaticLogger.logger.info(String.valueOf(response));
-
-        return email.getEmailID();
-    }
-
-    private String getStatusOfEmail(UUID emailId) {
-        WebClient.RequestHeadersSpec<?> uri = client.get()
-                .uri("api/v1/Email/" + emailId)
-                .headers(httpHeaders -> httpHeaders.setBearerAuth(MarketingService.TOKEN));
-
-        String response = Objects.requireNonNull(uri.exchange()
-                .block())
-                .bodyToMono(String.class)
-                .block();
-
-        StaticLogger.logger.info(response);
-
-        EmailResponse emailResponse = gson.fromJson(response, EmailResponse.class);
-        return emailResponse.getEmailStatus();
-    }
 }

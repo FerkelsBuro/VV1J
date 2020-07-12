@@ -4,16 +4,16 @@ import core.Constants;
 import core.loggers.StaticLogger;
 import infrastructure.MessageReceiver;
 import th.vv3.models.Customer;
+import th.vv3.proxies.CustomerProxy;
 
 import java.io.IOException;
-import java.util.function.Consumer;
 
 public class DeclinedCustomersListener implements Runnable {
-    private Consumer<Customer> onEvent;
     private MessageReceiver messageReceiver;
+    private CustomerProxy customerProxy;
 
-    public DeclinedCustomersListener(Consumer<Customer> onEvent, MessageReceiver messageReceiver) {
-        this.onEvent = onEvent;
+    public DeclinedCustomersListener(CustomerProxy customerProxy, MessageReceiver messageReceiver) {
+        this.customerProxy = customerProxy;
         this.messageReceiver = messageReceiver;
     }
 
@@ -21,7 +21,7 @@ public class DeclinedCustomersListener implements Runnable {
     public void run() {
         try {
             messageReceiver.receive(Constants.Exchanges.DECLINED_CUSTOMERS, Constants.Queues.DECLINED_CUSTOMERS,
-                    onEvent, Customer.class);
+                    customerProxy::deleteCustomer, Customer.class);
         } catch (IOException e) {
             StaticLogger.logException(e);
         }
