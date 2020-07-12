@@ -1,9 +1,6 @@
 package th.vv3.controller.v1;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,7 +40,7 @@ public class PaymentsController {
             @ApiResponse(code = 201, message = "Payment created"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 404, message = "Customer not found or Order not found"),})
-    public ResponseEntity create(@RequestBody Payment payment) {
+    public ResponseEntity create(@ApiParam(value = "Payment that should be created", required = true) @RequestBody Payment payment) {
         if (payment.getPaymentId() != null) {
             return new ResponseEntity<>("id must not be set", HttpStatus.BAD_REQUEST);
         }
@@ -73,7 +70,7 @@ public class PaymentsController {
             @ApiResponse(code = 200, message = "Returned open amount"),
             @ApiResponse(code = 400, message = "Bad Request"),
             @ApiResponse(code = 404, message = "Customer not found"),})
-    public ResponseEntity getAmountByCustomerId(@PathVariable UUID customerId) {
+    public ResponseEntity getAmountByCustomerId(@ApiParam(value = "Unique Id of the Customer", required = true) @PathVariable UUID customerId) {
         Optional<Customer> customer = customerRepository.findById(customerId);
         if (customer.isEmpty()) {
             return new ResponseEntity<>("Customer not found", HttpStatus.NOT_FOUND);

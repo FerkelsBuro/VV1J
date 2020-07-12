@@ -1,14 +1,18 @@
 package th.vv3.DTOs;
 
+import io.swagger.annotations.ApiModelProperty;
 import th.vv3.models.Order;
 
 import java.util.Date;
 import java.util.UUID;
 
 public class OrderReadDto {
+    @ApiModelProperty(example = "2fa85f64-5717-4562-b3fc-2c963f66afa6")
     private UUID orderId;
+    @ApiModelProperty(example = "100")
     private int amount;
     private Date createDate;
+    @ApiModelProperty(example = "BOSS")
     private String approvedBy;
 
     public OrderReadDto(Order order) {

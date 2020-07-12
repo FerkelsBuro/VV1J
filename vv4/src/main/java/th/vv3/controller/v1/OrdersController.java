@@ -1,9 +1,6 @@
 package th.vv3.controller.v1;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,16 +36,17 @@ public class OrdersController {
     @ApiResponses(value = { // SWAGGER
             @ApiResponse(code = 200, message = "Order created"),
             @ApiResponse(code = 400, message = "Bad Request"),})
-    public ResponseEntity create(@RequestBody OrderReadDto dto, @PathVariable UUID customerId) {
+    public ResponseEntity create(@ApiParam(value = "Order that should be created", required = true) @RequestBody OrderReadDto orderRead,
+                                 @ApiParam(value = "Unique Id of the Order's Customer", required = true) @PathVariable UUID customerId) {
         Optional<Customer> customer = customerRepository.findById(customerId);
 
         if (customer.isEmpty()) {
             return new ResponseEntity<>("customer not found", HttpStatus.NOT_FOUND);
-        } else if (dto.getApprovedBy().equals(Strings.EMPTY)) {
+        } else if (orderRead.getApprovedBy().equals(Strings.EMPTY)) {
             return new ResponseEntity<>("Order must be approved by someone", HttpStatus.BAD_REQUEST);
         }
 
-        Order order = new Order(dto);
+        Order order = new Order(orderRead);
         order.setCustomer(customer.get());
 
         orderRepository.save(order);

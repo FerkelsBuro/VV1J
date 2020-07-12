@@ -13,11 +13,16 @@ import java.util.UUID;
 @Entity
 public class Customer {
     @Id
+    @ApiModelProperty(example = "3fa85f64-5717-4562-b3fc-2c963f66afa6")
     private UUID customerId;
+    @ApiModelProperty(example = "Unknown")
     private String salutation;
+    @ApiModelProperty(example = "Michael")
     private String firstName;
+    @ApiModelProperty(example = "Backer")
     private String lastName;
     @Column(unique = true)
+    @ApiModelProperty(example = "MichaelBacker@gmail.com")
     private String email;
     @Version
     private Integer version;
