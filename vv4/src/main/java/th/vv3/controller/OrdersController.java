@@ -1,5 +1,8 @@
 package th.vv3.controller;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +28,14 @@ public class OrdersController {
     }
 
     @PostMapping
+    @ApiOperation( // SWAGGER
+            value = "Creates an order",
+            notes = "...",
+            response = Order.class,
+            produces = "application/json")
+    @ApiResponses(value = { // SWAGGER
+            @ApiResponse(code = 200, message = "Order created"),
+            @ApiResponse(code = 400, message = "Bad Request"),})
     public ResponseEntity create(@RequestBody Order order, @PathVariable UUID customerId) {
         Optional<Customer> customer = customerRepository.findById(customerId);
 
