@@ -1,4 +1,4 @@
-package th.vv3.controller;
+package th.vv3.controller.v1;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
