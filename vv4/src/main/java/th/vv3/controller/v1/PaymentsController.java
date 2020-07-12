@@ -92,13 +92,13 @@ public class PaymentsController {
 
     private int getAmountPayed(UUID customerId) {
         return paymentRepository.findAll()
-                    .stream()
-                    .filter(e -> e.getCustomerId().equals(customerId)).mapToInt(Payment::getAmount).sum();
+                .stream()
+                .filter(e -> e.getCustomerId().equals(customerId)).mapToInt(Payment::getAmount).sum();
     }
 
     private int getAmountOrders(UUID customerId) {
         return orderRepository.findAll()
-                    .stream()
-                    .filter(e -> e.getCustomer().getCustomerId().equals(customerId)).mapToInt(Order::getAmount).sum();
+                .stream()
+                .filter(e -> e.getCustomer().getCustomerId().equals(customerId)).mapToInt(Order::getAmount).sum();
     }
 }

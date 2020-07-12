@@ -12,9 +12,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import th.vv3.DTOs.OrderReadDto;
-import th.vv3.controller.CustomersController;
-import th.vv3.controller.OrdersController;
-import th.vv3.controller.PaymentsController;
+import th.vv3.controller.v1.CustomersController;
+import th.vv3.controller.v1.OrdersController;
+import th.vv3.controller.v1.PaymentsController;
 import th.vv3.models.Customer;
 import th.vv3.models.Order;
 
