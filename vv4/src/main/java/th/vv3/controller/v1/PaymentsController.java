@@ -1,5 +1,6 @@
 package th.vv3.controller.v1;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -17,6 +18,7 @@ import th.vv3.repositories.PaymentRepository;
 import java.util.Optional;
 import java.util.UUID;
 
+@Api(tags = "Payment", description = "Create Payments and get open amount of specific Customers")
 @RestController
 @RequestMapping("api/v1/payments")
 public class PaymentsController {

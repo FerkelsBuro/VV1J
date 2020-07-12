@@ -1,8 +1,6 @@
 package th.vv3.controller.v1;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -14,6 +12,7 @@ import th.vv3.repositories.CustomerRepository;
 import java.util.Optional;
 import java.util.UUID;
 
+@Api(tags = "Customer", description = "Get, Create, Change and Delete Customers")
 @RestController
 @RequestMapping("api/v1/customers")
 public class CustomersController {

@@ -1,5 +1,6 @@
 package th.vv3.controller.v1;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -17,6 +18,7 @@ import th.vv3.repositories.OrderRepository;
 import java.util.Optional;
 import java.util.UUID;
 
+@Api(tags = "Order", description = "Create Orders")
 @RestController
 @RequestMapping("api/v1/customers/{customerId}/orders")
 public class OrdersController {
