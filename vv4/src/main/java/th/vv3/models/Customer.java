@@ -1,6 +1,8 @@
 package th.vv3.models;
 
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -11,7 +13,6 @@ import java.util.UUID;
 @Entity
 public class Customer {
     @Id
-//    @GeneratedValue
     private UUID customerId;
     private String salutation;
     private String firstName;

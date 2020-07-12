@@ -1,5 +1,7 @@
 package th.vv3.models;
 
+import th.vv3.DTOs.OrderReadDto;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
@@ -22,6 +24,13 @@ public class Order {
 
     public Order() {
 
+    }
+
+    public Order(OrderReadDto dto) {
+        orderId = dto.getOrderId();
+        amount = dto.getAmount();
+        createDate = dto.getCreateDate();
+        approvedBy = dto.getApprovedBy();
     }
 
     public Order(int amount, Customer customer) {

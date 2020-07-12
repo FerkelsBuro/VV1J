@@ -11,6 +11,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import th.vv3.DTOs.OrderReadDto;
 import th.vv3.controller.CustomersController;
 import th.vv3.controller.OrdersController;
 import th.vv3.controller.PaymentsController;
@@ -67,7 +68,7 @@ public class OrderApprovalService implements CommandLineRunner {
                 System.out.println("response: " + responseEntity);
             }
             order.setOrderId(null);
-            ResponseEntity responseEntity = ordersController.create(order, customer.getCustomerId());
+            ResponseEntity responseEntity = ordersController.create(new OrderReadDto(order), customer.getCustomerId());
             System.out.println("response: " + responseEntity);
 
             messageSender.send(Constants.Exchanges.APPROVED_CUSTOMERS, customer);
