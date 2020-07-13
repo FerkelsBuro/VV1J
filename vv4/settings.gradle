@@ -1,4 +1,4 @@
 rootProject.name = 'vv3'
 
 include ':Common'
-project(':Common').projectDir = new File('../Messaging/Common')
+project(':Common').projectDir = new File('../messaging/Common')
