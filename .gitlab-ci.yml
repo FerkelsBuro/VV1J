@@ -31,6 +31,8 @@ build:
    - cd ../Common
    - gradle assemble
 
+   - cd ../../vv3
+   - gradle assemble
 test:
   stage: test
   script:
