@@ -1,5 +1,6 @@
 package th.vv3.controller.v1;
 
+import core.loggers.StaticLogger;
 import io.swagger.annotations.*;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +53,7 @@ public class OrdersController {
         Order order = new Order(orderRead);
         order.setCustomer(customer.get());
 
-        System.out.println(orderRepository.saveAndFlush(order));
+        orderRepository.saveAndFlush(order);
 
         return new ResponseEntity<>(order, HttpStatus.CREATED);
     }

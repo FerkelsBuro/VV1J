@@ -56,7 +56,7 @@ public class OrderApprovalService implements CommandLineRunner {
     }
 
     private void orderResponse(Order order) throws IOException, TimeoutException {
-        System.out.println("received: " + gson.toJson(order));
+        StaticLogger.logger.info("received: " + gson.toJson(order));
         Customer customer = order.getCustomer();
 
         ResponseEntity amount = paymentsController.getAmountByCustomerId(customer.getCustomerId());
@@ -65,18 +65,17 @@ public class OrderApprovalService implements CommandLineRunner {
 
             if (amount.getStatusCode() == HttpStatus.NOT_FOUND) {
                 ResponseEntity responseEntity = customersController.create(customer);
-                System.out.println("response: " + responseEntity);
+                StaticLogger.logger.info("response: " + responseEntity);
             }
             order.setOrderId(null);
             ResponseEntity responseEntity = ordersController.create(new OrderReadDto(order), customer.getCustomerId());
-            System.out.println("response: " + responseEntity);
+            StaticLogger.logger.info("response: " + responseEntity);
 
             messageSender.send(Constants.Exchanges.APPROVED_CUSTOMERS, customer);
-            System.out.println();
 
         } else {
             messageSender.send(Constants.Exchanges.DECLINED_CUSTOMERS, customer);
-            System.out.println("Customer was declined\n");
+            StaticLogger.logger.info("Customer was declined\n");
         }
 
 
